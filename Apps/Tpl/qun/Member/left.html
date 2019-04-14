@@ -1,0 +1,63 @@
+
+<ul>
+   
+</ul>
+<div class="centerNav">
+
+    <div class="centerAvatar">
+
+        <div class="row">
+
+            <div class="avatar">
+
+                <a href="#" title="头像">
+
+                    <img src="<empty name='data.thumb'>../Public/images/nopic.gif<else />__ROOT__/Uploads{$data.thumb}</empty>" alt="头像">
+
+                </a>
+
+            </div>
+
+            <div class="myInfo">
+
+                <p class="name ellips mt20">{$data.nickname}</p>
+
+
+                <p class="integral">会员组:<span class=" Pink">{$data.role_id|getGroupName}</span></p>
+
+            </div>
+
+        </div>
+
+        <div class="row pt10">
+
+            <div class="rgstion" style=" text-align:center">
+
+                <a href="{:U('Member/index')}" class="btn_orange" title="签到">返回个人中心</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="centerMenu">
+
+        <ul>
+
+            <li class="item <eq name="position" value="add">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/add')}" class="link">发布二维码</a></div></li>
+            <li class="item <eq name="position" value="manage">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/manage')}" class="link">管理二维码</a></div></li>
+            <li class="item <eq name="position" value="tjlist">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/tjlist')}" class="link">自助推荐<i class="hot centerICON icon_5"></i></a></div></li>
+            <li class="item <eq name="position" value="pay">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/pay')}" class="link">在线充值<i class="hot centerICON icon_5"></i></a></div></li>
+            <li class="item <eq name="position" value="paylist">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/paylist')}" class="link">充值记录</a></div></li>
+            <li class="item <eq name="position" value="change">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/change')}" class="link">积分兑换<i class="hot centerICON icon_5"></i></a></div></li>
+            <li class="item <eq name="position" value="spendlist">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/spendlist')}" class="link">消费记录</a></div></li>
+            <li class="item <eq name="position" value="information">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/information')}" class="link">修改资料</a></div></li>
+            <li class="item <eq name="position" value="password">active"</eq>">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/password')}" class="link">修改密码</a></div></li>
+            <li class="item">  <div class="menu_bg"><span class="centerICON icon_1"></span><a href="{:U('Member/logout')}">退出</a></div></li>
+
+        </ul>
+
+    </div>
+
+</div>

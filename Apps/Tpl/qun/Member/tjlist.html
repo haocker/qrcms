@@ -1,0 +1,107 @@
+<include file="Public:header" />
+<link href="../Public/css/center.css" rel="stylesheet" />
+<link href="../Public/css/table_form.css" rel="stylesheet" />
+<style>
+    .centerDisArea button{
+        background: #ff3265;
+        border: none;
+        border-radius: 5px;
+        color: #ffffff;
+        cursor: pointer;
+    }
+</style>
+<div class="w1200 clearfix pt20">
+    <include file="Member:left" />
+    <div class="centerContent ml10">
+        <div class="centerDisArea_title mt20">
+            <div class="title">
+                <a href="javascript:void(0);" class="tab-link1 active">
+                    热门推荐管理
+                </a>
+            </div>
+
+        </div>
+        <div class="centerDisArea">
+            <form method="post" action="{:U('Member/manage',array('catid'=>$catid))}">
+                <input type="text" name="name" title="公众账号" class="ipt5">
+                <select name="zt" style="vertical-align: baseline;height: 28px;margin:0 10px">
+                    <option value="-2" <eq name="zt" value="-2">selected="selected"</eq>>全部</option>
+                    <option value="0" <eq name="zt" value="0">selected="selected"</eq>>禁用</option>
+                    <option value="1" <eq name="zt" value="1">selected="selected"</eq>>启用</option>
+                </select>
+                <button type="submit" style="height: 28px;width:64px;">查询</button>
+                <button type="button" onclick="add()"  style="height: 28px;margin-left: 20px">我要上推荐</button>
+            </form>
+
+            <div class="tab1 ">
+                <table class="comTab mt20 " border="0">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                <table class="history">
+                                    <tbody>
+                                        <tr>
+                                            <th width="10%">编号</th>
+                                            <th width="15%">公众账号</th>
+                                            <th width="15%">推荐位置</th>
+                                            <th width="15%">开始日期</th>
+                                            <th width="10%">结束日期</th>
+                                            <th width="15%">消费金币</th>
+                                            <th width="20%">状态</th>
+                                        </tr>
+                                        <volist name="list" id="vo">
+                                            <tr>
+
+                                                <td>{$vo.id}</td>
+                                                <td><a href="{:U('Weixin/show',array('id'=>$vo['wxid']))}" target='_blank'>{$vo.wxid|getWeixinName}</a></td>
+                                                <td>{$vo.recommendid|getRecommendName}</td>
+                                                <td>{$vo.starttime|toDate='Y-m-d'}</td>
+                                                <td>{$vo.endtime|toDate='Y-m-d'}</td>
+                                                <td>{$vo.intergral}</td>
+                                                <td>
+                                                    <if condition="$vo.status eq 1">
+                                                        启用
+                                                        <else />
+                                                        禁用
+                                                    </if>
+                                                </td>
+                                            </tr>
+                                        </volist>
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul class="submit_tip">
+                特别提示：
+                <li>1、严厉打击<span class="Pink">黄赌毒或低俗诱惑图片</span>,发现删号扣金币处理！</li>
+                <li>2、禁止发布重复二维码或图片,发现一次扣100个金币！</li>
+                <li>3、要求提升群质量，群主需要定时踢出垃圾广告用户</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function add() {
+        location.href = "{:U('Member/addtj')}";
+    }
+    function foreverdel(url) {
+        if (confirm("确定要删除该条记录吗？删除后将不可恢复！")) {
+            location.href = url;
+        }
+    }
+    $(function () {
+        //选中列表行变色
+        $(".list tr").mouseover(function () {
+            $(this).addClass("currow");
+        }).mouseout(function () {
+            $(this).removeClass("currow");
+        });
+    });
+
+</script>
+<include file="Public:footer" />

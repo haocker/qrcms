@@ -1,0 +1,112 @@
+<include file="Public:header" />
+<link href="../Public/css/style_zixun.css" rel="stylesheet" />
+<div class="container" style=" background:#fff; border-bottom:1px solid #ccc;">
+    <div class="w1200">
+        <div class="city_nav_inp title">
+            <span class="title_dqwx" style="float: left">
+                {$data.catname}
+            </span>
+            <div class="Rel_btn Rel_gjqun" style="margin-top: 30px;">
+                    <span class="weixinqunICON wxICON_7">
+                    </span>
+                <a href="JavaScript:alert('请联系客服')" class="user-center">
+                    我要投稿
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="w1200 clearfix pb10">
+        <empty name="catid">
+            <assign name="cat" value="$parentcatid" />
+            <else />
+            <assign name="cat" value="$catid" />
+        </empty>
+        <div class="assort-content bg clearfix mt20">
+            <div class="d2">
+                <span class="fl">
+                    <strong>类型:</strong>
+                </span>
+
+
+                <ul class="expend" id="citybox">
+                    <li <if condition="($parentcatid eq '') and ($catid eq '')">class="active"<else />class=""</if>>
+                        <a href="{:U('Article/index',array('id'=>55))}">全部</a>
+                    </li>
+                    <volist name="categorylist" id="category2">
+                        <eq name="category2['level']" value="2">
+                            <li <if condition="($parentcatid eq $category2['id'])">class="active"<else />class=""</if>>
+                                <a  href="{:U('Article/index',array('id'=>$category2['id']))}" title="{$category2['catname']}" >{$category2['catname']}</a>
+                            </li>
+                        </eq>
+                    </volist>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div class="H_zixun Pub mt20">
+    <div class="zz_conts">
+        <ul>
+
+            
+            <volist name="list" id="vo">
+                <li>
+                    <div class="zz_nr">
+                        <a href="{:U('Article/show',array('id'=>$vo['id']))}" target="_blank">
+                            <img src="<empty name='vo.thumb'>../Public/images/nopic.gif<else />__ROOT__/Uploads{$vo.thumb}</empty>" alt="{$vo.title}">
+                        </a>
+                        <strong class="ellips"><a href="{:U('Article/show',array('id'=>$vo['id']))}" target="_blank">{$vo.title}</a></strong>
+                        <p style="width: 369px;height:107px; overflow:hidden">
+                            {$vo.content|strip_tags|msubstr=0,95}
+                            <a href="{:U('Article/show',array('id'=>$vo['id']))}" target="_blank">[详细]</a>
+                        </p>
+                        <p style="color:#9a9a9a;" class="share_detail">
+                            <font class="fl">阅读 {$vo['hits']*175}  </font>
+                            <font class="ml20">发布时间：{$vo.create_time|date='Y-m-d H:i',###}</font>
+                            <font class="fr">
+                                <a href="#"><img src="../Public/images/fen.png" alt="朋友圈二维码">朋友圈</a>
+                                <span class="list_share_code" style="display: none;">
+                                    <img src="http://check.weixinqun.com/get_qrcode?data={:U('Article/show',array('id'=>$vo['id']),'',false,true)}" alt="二维码">
+                                    <span class="share_py_txt">发到朋友圈</span>
+                                </span>
+                            </font>
+                        </p>
+
+                        <div class="clr">
+
+                        </div>
+                    </div>
+                </li>
+            </volist>
+            
+
+            <div class="clr"></div>
+
+        </ul>
+
+
+        <div class="pageNo vm center">
+            {$page}
+        </div>
+
+
+    </div>
+</div>
+<script type="text/javascript">
+    $(".share_detail a").hover(function () {
+        $(this).siblings(".list_share_code").show();
+    }, function () {
+        $(this).siblings(".list_share_code").hide();
+    })
+
+</script>
+<include file="Public:footer" />

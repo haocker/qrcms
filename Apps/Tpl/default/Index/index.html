@@ -1,0 +1,288 @@
+<include file="Public:header"/>
+<div class="main">
+    <div class="ibox">
+        <div class="il">
+            <!--图片轮换播放-->
+            <div id="play">	
+                <div id="play_info_bg"></div>
+                <div id="play_info"></div>
+                <div id="play_text">
+                    <ul>
+                        <yufu:slide field="id" order="listorder desc" num="5">
+                        <li>{$key+1}</li>
+                        </yufu:slide>
+                    </ul>
+                </div>
+                <div id="play_list">
+                    <yufu:slide field="id,title,url,img" order="listorder desc" num="5">
+                        <a href="{$slide.url}" target="_blank"><img src="Uploads{$slide.img}" alt="{$slide.title}" width="690" height="220" /></a>
+                   </yufu:slide>
+                </div>
+            </div>
+        </div>
+        <div class="ir">
+            <h3>今日推荐</h3>
+            <yufu:tuijian catid="53" recommendid="4" num="1" >
+            <div class="img"><a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}" target="_blank"><img src="<empty name='tuijian.logo'><empty name='tuijian.weblogo'>../Public/images/nopic.gif<else />{$tuijian.weblogo}</empty><else />__ROOT__/Uploads{$tuijian.logo}</empty>" width="125" height="125"></a></div>
+            <div class="recommendinfo">
+                <div class="name"><a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}" title="{$tuijian.pubaccount}" target="_blank">{$tuijian.pubaccount|msubstr=0,6}</a></div>
+                <div class="xingji"><img src="../Public/images/xx{$tuijian.xingji}.jpg" /></div>
+                <div class="cishu">关注{$tuijian.hits}次</div>
+                <div class="guanzhu"><a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}" target="_blank">加关注</a></div>
+            </div>
+            </yufu:tuijian>
+            <div class="clear"></div>
+            <div class="appdown">
+                <span class="android"><a href="<yufu:other settag="androidweixin" />" class="android" target="_blank">Android客户端下载</a></span>
+                <span class="iphone"><a href="<yufu:other settag="iphoneweixin" />" class="iphone" target="_blank">iphone客户端下载</a></span>
+            </div>
+           
+          
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div class="ibox">
+        <div class="illeft">
+        <div class="illeftbox">
+            <div class="ibox_top">热门推荐&nbsp;<a href="{:U('Content/index',array('id'=>138))}" style="color: red;" target="_blank">【我要上推荐】</a><span><a href="{:U('Weixin/hot',array('id'=>'88'))}" target="_blank">更多&gt;&gt;</a></span></div>
+            <div id="rollTab">
+             <volist name="tjlist" id="tuijian" mod="14">
+               <eq name="mod" value="0"> <ul class="ibox_content popo" <neq name="key" vlalue="0"> style="display: none;"</neq>></eq>
+                        
+                            <li>
+                                <a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}" class="syrmtj" title="{$tuijian.pubaccount}" target='_blank'>
+                                    <img src="<empty name='tuijian.logo'><empty name='tuijian.weblogo'>../Public/images/nopic.gif<else />{$tuijian.weblogo}</empty><else />__ROOT__/Uploads{$tuijian.logo}</empty>" width="80" height="80">
+                                <div class="title">{$tuijian.pubaccount|msubstr=0,6}</div>
+                                </a>
+                                <div class="pop">
+                                    <div class="panel">
+                                        <div class="ewm"><img src="<empty name='tuijian.qrcode'><empty name='tuijian.webqrcode'>../Public/images/nopic.gif<else />{$tuijian.webqrcode}</empty><else />__ROOT__/Uploads{$tuijian.qrcode}</empty>"></div>
+                                        <div class="title">{$tuijian.pubaccount|msubstr=0,6}</div>
+                                        <div class="star"><img src="../Public/images/xx{$tuijian.xingji}.jpg" /></div>
+                                        <div class="rate">{$tuijian.hits}人关注</div>
+                                        <div class="des"><p>{$tuijian.content|strip_tags|msubstr=0,20}</p></div>
+                                    </div>
+                                    <div class="arrow">
+                                        <div class="arrow1"></div>
+                                        <div class="arrow2"></div>
+                                   </div> 
+                               </div>
+                            </li>
+                        
+                <eq name="mod" value="13"></ul></eq>
+                </volist>
+            </div>
+
+        </div>
+        
+        <volist name="categorylist" id="category1">
+            <volist name="category1.pid" id="category2">
+
+                <div class="illeftbox">
+                <div class="ibox_top">{$category2['catname']}
+                    <volist name="category2.pid" id="category3">
+                        <if condition="$category3['status'] eq 1">
+                        <a href="{:U('Weixin/index',array('id'=>$category3['id']))}" title="{$category3['catname']}" target="_blank">{$category3['catname']}</a>
+                        </if>
+                    </volist>
+                    <span><a href="{:U('Weixin/index',array('id'=>$category2['id']))}" title="{$category2['catname']}" target="_blank">更多&gt;&gt;</a></span>
+                </div>
+                <ul class="ibox_content popo">
+                    <?php
+                    $catlist = D('Category')->where('status=1')->select();	
+                    $idlist = $category2['id'].','.getChildId($catlist,$category2['id']);  
+                    $idlist= substr($idlist, 0, strlen($idlist)-1);
+                    ?>
+                    <yufu:tuijian catid="'.$idlist.'" recommendid="2" num="14" >
+                        <li>
+                            <a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}" class="syfltj" title="{$tuijian.pubaccount}" target='_blank'>
+                            <img src="<empty name='tuijian.logo'><empty name='tuijian.weblogo'>../Public/images/nopic.gif<else />{$tuijian.weblogo}</empty><else />__ROOT__/Uploads{$tuijian.logo}</empty>" width="80" height="80">
+                            <div class="title">{$tuijian.pubaccount|msubstr=0,6}</div>
+                            </a>
+                            <div class="pop">
+                                <div class="panel">
+                                    <div class="ewm"><img src="<empty name='tuijian.qrcode'><empty name='tuijian.webqrcode'>../Public/images/nopic.gif<else />{$tuijian.webqrcode}</empty><else />__ROOT__/Uploads{$tuijian.qrcode}</empty>"></div>
+                                    <div class="title">{$tuijian.pubaccount|msubstr=0,6}</div>
+                                    <div class="star"><img src="../Public/images/xx{$tuijian.xingji}.jpg" /></div>
+                                    <div class="rate">{$tuijian.hits}人关注</div>
+                                    <div class="des"><p>{$tuijian.content|strip_tags|msubstr=0,20}</p></div>
+                                </div>
+                                <div class="arrow">
+                                    <div class="arrow1"></div>
+                                    <div class="arrow2"></div>
+                               </div> 
+                           </div>
+                        </li>
+                    </yufu:tuijian>
+                </ul>
+            </div>
+            </volist>
+        </volist>
+        
+        </div>
+        <div class="irright">
+            <div class="irrightbox" style="padding: 10px;">
+                <div class="count">
+                    <div class="allcount">
+                        {$allcount}
+                        <p>总共收录数</p>
+                    </div>
+                    <div class="daycount">
+                        {$daycount}
+                        <p>今日收录数</p>
+                    </div>
+                </div>
+            </div>
+            <div class="irrightbox">
+                <div class="ibox_top">促销活动 <span><a href="{:U('Promotion/index',array('id'=>'131'))}" target="_blank">更多&gt;&gt;</a></span></div>
+                <ul class="ibox_article">
+                    <yufu:promotion catid="131" field="id,title" order="create_time desc" num="5" >
+                        <li>
+                            <a href="{:U('Promotion/show',array('id'=>$promotion['id']))}" title="{$promotion['title']}" target='_blank'>{$promotion['title']}</a>
+                        </li>
+                    </yufu:promotion>
+                </ul>
+            </div>
+            <div class="irrightbox">
+                <div class="ibox_top">微信资讯 <span><a href="{:U('Article/index',array('id'=>'55'))}" target="_blank">更多&gt;&gt;</a></span></div>
+                <ul class="ibox_article">
+                    <yufu:article catid="55" field="id,title" order="create_time desc" num="5" >
+                        <li>
+                            <a href="{:U('Article/show',array('id'=>$article['id']))}" title="{$article['title']}" target='_blank'>{$article['title']}</a>
+                        </li>
+                    </yufu:article>
+                </ul>
+            </div>
+             <div class="irrightbox">
+                <div class="ibox_top">今日排行榜<span><a href="{:U('Weixin/order',array('id'=>'89'))}" target="_blank">更多&gt;&gt;</a></span></div>
+                <ul class="ibox_content">
+                    <yufu:hits order="d" num="5" >
+                        <li>
+                            <div class="order">{$key+1}</div>
+                            <a href="{:U('Weixin/show',array('id'=>$hits['id']))}" title="{$hits.pubaccount}" target='_blank'>
+                            <img src="<empty name='hits.logo'><empty name='hits.weblogo'>../Public/images/nopic.gif<else />{$hits.weblogo}</empty><else />__ROOT__/Uploads{$hits.logo}</empty>" class='img' width="40" height="40">
+                            <div class="title">{$hits.pubaccount|msubstr=0,6}</div>
+                            <div class="sort">加关注</div>
+                            </a>
+                        </li>
+                    </yufu:hits>
+                </ul>
+            </div>
+            <div class="irrightbox">
+                <div class="ibox_top">本周排行榜<span><a href="{:U('Weixin/order',array('id'=>'89'))}" target="_blank">更多&gt;&gt;</a></span></div>
+                <ul class="ibox_content">
+                    <yufu:hits order="w" num="5" >
+                        <li>
+                            <div class="order">{$key+1}</div>
+                            <a href="{:U('Weixin/show',array('id'=>$hits['id']))}" title="{$hits.pubaccount}" target='_blank'>
+                            <img src="<empty name='hits.logo'><empty name='hits.weblogo'>../Public/images/nopic.gif<else />{$hits.weblogo}</empty><else />__ROOT__/Uploads{$hits.logo}</empty>" class='img' width="40" height="40">
+                            <div class="title">{$hits.pubaccount|msubstr=0,6}</div>
+                            <div class="sort">加关注</div>
+                            </a>
+                        </li>
+                    </yufu:hits>
+                </ul>
+            </div>
+            <div class="irrightbox">
+                <div class="ibox_top">本月排行榜<span><a href="{:U('Weixin/order',array('id'=>'89'))}" target="_blank">更多&gt;&gt;</a></span></div>
+                <ul class="ibox_content">
+                    <yufu:hits order="m" num="5" >
+                        <li>
+                            <div class="order">{$key+1}</div>
+                            <a href="{:U('Weixin/show',array('id'=>$hits['id']))}" title="{$hits.pubaccount}" target='_blank'>
+                            <img src="<empty name='hits.logo'><empty name='hits.weblogo'>../Public/images/nopic.gif<else />{$hits.weblogo}</empty><else />__ROOT__/Uploads{$hits.logo}</empty>" class='img' width="40" height="40">
+                            <div class="title">{$hits.pubaccount|msubstr=0,6}</div>
+                            <div class="sort">加关注</div>
+                            </a>
+                        </li>
+                    </yufu:hits>
+                </ul>
+            </div>
+            
+            <div class="irrightbox">
+                <div class="ibox_top">关注排行榜<span><a href="{:U('Weixin/order',array('id'=>'89'))}" target="_blank">更多&gt;&gt;</a></span></div>
+                <ul class="ibox_content">
+                    <yufu:weixin catid="53" field="id,logo,pubaccount,hits" order="hits desc" num="5" >
+                        <li>
+                            <div class="order">{$key+1}</div>
+                            <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}" title="{$weixin.pubaccount}" target='_blank'>
+                            <img src="<empty name='weixin.logo'><empty name='weixin.weblogo'>../Public/images/nopic.gif<else />{$weixin.weblogo}</empty><else />__ROOT__/Uploads{$weixin.logo}</empty>" class='img' width="40" height="40">
+                            <div class="title">{$weixin.pubaccount|msubstr=0,6}</div>
+                            <div class="sort">加关注</div>
+                            </a>
+                        </li>
+                    </yufu:weixin>
+                </ul>
+            </div>
+            <div class="irrightbox">
+                <div class="ibox_top">最新收录<span><a href="{:U('Weixin/news',array('id'=>'90'))}" target="_blank">更多&gt;&gt;</a></span></div>
+                <ul class="ibox_content">
+                    <yufu:weixin catid="53" field="id,logo,pubaccount" order="create_time desc" num="5" >
+                        <li>
+                            <div class="order">{$key+1}</div>
+                            <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}" title="{$weixin.pubaccount}" target='_blank'>
+                            <img src="<empty name='weixin.logo'><empty name='weixin.weblogo'>../Public/images/nopic.gif<else />{$weixin.weblogo}</empty><else />__ROOT__/Uploads{$weixin.logo}</empty>" class='img' width="40" height="40">
+                            <div class="title">{$weixin.pubaccount|msubstr=0,6}</div>
+                            <div class="sort">加关注</div>
+                            </a>
+                        </li>
+                    </yufu:weixin>
+                </ul>
+            </div>
+            
+            
+            
+        </div>
+    </div>
+    
+    <div class="link">
+        <ul>
+            <li><span>友情链接:</span></li>
+            <volist name="list" id="vo">
+                <if condition="$vo['type'] eq 0 ">
+                    <if condition="$vo['linktype'] eq 0">
+                    <li><a href="{$vo.url}" target="_blank">{$vo.name}</a</li>
+                    </if>
+                </if>
+            </volist>
+            <li><a href="{:U('Link/index')}" style="color:red;">更多&gt;</a></li>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    
+var t = n = 0, count = $("#play_list a").size();
+$(function(){
+    
+   
+    //幻灯片播放
+    $("#play_list a:not(:first-child)").hide();
+    $("#play_info").html($("#play_list a:first-child").find("img").attr('alt'));
+    $("#play_info").click(function(){window.open($("#play_list a:first-child").attr('href'), "_blank");});
+    
+    $("#play_text li:first-child").css({"background":"#fff",'color':'#000'});
+    $("#play_text li").click(function() {
+            var i = $(this).text() - 1;
+            n = i;
+            if (i >= count) return;
+            $("#play_info").html($("#play_list a").eq(i).find("img").attr('alt'));
+            $("#play_info").unbind().click(function(){window.open($("#play_list a").eq(i).attr('href'), "_blank");});
+            $("#play_list a").filter(":visible").fadeOut(500).parent().children().eq(i).fadeIn(1000);
+            $(this).css({"background":"#fff",'color':'#000'}).siblings().css({"background":"#000",'color':'#fff'});
+    });
+    t = setInterval("showAuto()", 5000);
+    $("#play").hover(function(){clearInterval(t);}, function(){t = setInterval("showAuto()", 5000);});
+});
+
+function showAuto(){
+    n = n >= (count - 1) ? 0 : ++n;
+    $("#play_text li").eq(n).trigger('click');
+}
+
+$(function(){
+    $("#rollTab").effectBlockSlide({speed:6000});
+});
+ 
+
+</script>
+<include file="Public:footer"/>

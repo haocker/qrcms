@@ -1,0 +1,50 @@
+<include file="Public:header"/>
+<div class="main">
+    <div class="position">
+        <span>当前位置：</span>
+        <a href="__APP__">首页</a> &gt; 
+        <volist name="position" id="vo">
+            <a href="{:U('Weixin/order',array('id'=>$vo['id']))}">{$vo.catname}</a> &gt; 
+        </volist>
+    </div>
+    <div class="newsbox">
+        <div class="newsl">
+            <div class="newsllist">
+                <ul class="popo">
+                    <volist name="list" id="vo">
+                    <li>
+                         <a href="{:U('Weixin/show',array('id'=>$vo['id']))}" title="{$vo.pubaccount}" target='_blank'>
+                         <img src="<empty name='vo.logo'><empty name='vo.weblogo'>../Public/images/nopic.gif<else />{$vo.weblogo}</empty><else />__ROOT__/Uploads{$vo.logo}</empty>" width="80" height="80">
+                         <div class="title">{$vo.pubaccount|msubstr=0,6}</div>
+                         <div class="guanzhu">{$vo.hits}人关注</div>
+                         </a>
+                         <div class="pop">
+                             <div class="panel">
+                                <div class="ewm"><img src="<empty name='vo.qrcode'><empty name='vo.webqrcode'>../Public/images/nopic.gif<else />{$vo.webqrcode}</empty><else />__ROOT__/Uploads{$vo.qrcode}</empty>"></div>
+                                <div class="title">{$vo.pubaccount|msubstr=0,6}</div>
+                                <div class="star"><img src="../Public/images/xx{$vo.xingji}.jpg" /></div>
+                                <div class="rate">{$vo.hits}人关注</div>
+                                <div class="des"><p>{$vo.content|strip_tags|msubstr=0,20}</p></div>
+                             </div>
+                             <div class="arrow">
+                                <div class="arrow1"></div>
+                                <div class="arrow2"></div>
+                            </div>
+                             
+                        </div>
+                     </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="page">
+                {$page}
+            </div>
+        </div>
+        <div class="newsr">
+         <include file="Public:ggw" />
+        <include file="Public:wxzx" />
+        <include file="Public:zxsl" />
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

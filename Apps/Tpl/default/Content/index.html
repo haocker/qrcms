@@ -1,0 +1,25 @@
+<include file="Public:header"/>
+<div class="main">
+    <div class="position">
+        <span>当前位置：</span>
+        <a href="__APP__">首页</a> &gt; 
+        <volist name="position" id="vo">
+            <a href="{:U('Content/index',array('id'=>$vo['id']))}">{$vo.catname}</a> &gt; 
+        </volist>
+    </div>
+    <div class="newsbox">
+        <div class="newsl">
+            <div class="view" style="padding-bottom: 20px;line-height: 26px;font-size: 16px;">
+                {$data.content}
+            </div>
+        </div>
+        <div class="newsr">
+        <include file="Public:ggw" />
+        <include file="Public:gzphb" />
+        <include file="Public:wxzx" />
+        <include file="Public:zxsl" />
+        </div>
+    </div>
+</div>
+
+<include file="Public:footer"/>

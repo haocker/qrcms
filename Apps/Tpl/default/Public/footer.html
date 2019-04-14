@@ -1,0 +1,73 @@
+
+<div class="footer">
+    <!--Powered by YUFUCMS-->
+    <div class="bottom">
+        <yufu:other settag="footer" /><yufu:other settag="cnzzstatistics" />&nbsp;&nbsp;<yufu:other settag="lastatistics" />
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+       // 相册弹出特效
+        $("ul.popo li").hover(function(){
+                    $(".pop",this).stop(true,true).show().css({"left":$(this).offset().left + $(this).outerWidth()-3 + "px","top":$(this).offset().top + "px"});
+                },function(){
+                    $(".pop",this).stop(true,true).hide();
+        }); 
+        $("ul.popo li .pop").mouseover(function(){
+            $(this).hide();
+        });
+        
+        // 相册弹出特效
+        $("li > dl > dt").hover(function(){
+                    $(this).parent().parent().children('.pop').stop(true,true).show().css({"left":$(this).offset().left + $(this).outerWidth()-3 + "px","top":$(this).offset().top + "px"});
+                },function(){
+                    
+                    $(this).parent().parent().children('.pop').stop(true,true).hide();
+        }); 
+        $("li > .pop").mouseover(function(){
+            $(this).hide();
+        });
+        
+        
+        // 页面浮动面板
+        $("#floatPanel > .ctrolPanel > a.arrow").eq(0).click(function(){$("html,body").animate({scrollTop :0}, 800);return false;});
+        $("#floatPanel > .ctrolPanel > a.arrow").eq(1).click(function(){$("html,body").animate({scrollTop : $(document).height()}, 800);return false;});
+
+        var objPopPanel = $("#floatPanel > .popPanel");	
+        var w = objPopPanel.outerWidth();
+        $("#floatPanel > .ctrolPanel > a.qrcode").bind({
+            mouseover : function(){
+                        objPopPanel.css("width","0px").show();
+                        objPopPanel.animate({"width" : w + "px"},300);return false;
+                },
+                mouseout : function(){
+                        objPopPanel.animate({"width" : "0px"},300);return false;
+                        objPopPanel.css("width",w + "px");
+            }	
+        });
+    });
+</script>
+
+<!--浮动面板-->
+<div id="floatPanel">
+     <div class="ctrolPanel">
+           <a class="arrow" href="#"><span>顶部</span></a>
+           <a class="contact" href="<yufu:other settag="feedbackqq" />" target="_blank"><span>反馈</span></a>
+           <a class="qrcode" href="#"><span>微信二维码</span></a>
+           <a class="arrow" href="#"><span>底部</span></a>
+     </div>
+     <div class="popPanel">
+          <div class="popPanel-inner">
+                <div class="qrcodePanel">
+                     <img src="__UPLOADS__<yufu:set settag='qrcode' />" />
+                     <span>扫描二维码关注我为好友</span>
+                </div>
+                <div class="arrowPanel">
+                     <div class="arrow01"></div>
+                     <div class="arrow02"></div>
+                </div>
+          </div>
+     </div>
+</div>
+</body>
+</html>

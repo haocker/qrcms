@@ -1,0 +1,167 @@
+<include file="Public:header"/>
+<div class="container" style=" background:#fff; border-bottom:1px solid #ccc;">
+    <div class="w1200">
+        <div class="city_nav_inp title">
+            <span class="title_dqwx" style="float: left">
+                {$title}
+            </span>
+            <div class="Rel_btn Rel_gjqun" style="margin-top: 30px;">
+                    <span class="weixinqunICON wxICON_7">
+                    </span>
+                <a href="{:U('Content/index',array('id'=>138))}" class="user-center">
+                    我要接单
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .order_list {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-family: "Microsoft YaHei", arial;
+        text-align: left;
+    }
+
+    .order_item {
+        display: inline-block;
+        width: 100%;
+        padding: 25px;
+        margin: 0 0 25px;
+        border-bottom: 1px dashed #ddd;
+    }
+
+    .order_item .order_img {
+        margin: 0 0 5px;
+        border: 1px solid #ccc;
+        width: 174px;
+        height: 175px;
+        overflow: hidden;
+        position: relative;
+        float: left;
+    }
+
+    .order_item .order_img .public_face {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin: -15px 0 0 -15px;
+        max-width: 100%;
+        vertical-align: top;
+    }
+
+    .order_item .order_img .public_code {
+        width: 100%;
+        vertical-align: top;
+    }
+
+    .order_item .order_introduce {
+        float: left;
+        width: 690px;
+        margin: 0 0 0 10px;
+        height: 175px;
+        padding: 0;
+        border: 0;
+        display: block;
+    }
+
+    .order_item .order_introduce .introduce_t {
+        padding: 0 0 0 25px;
+    }
+
+    .order_item .order_introduce .introduce_t .it_txt1 {
+        font-size: 16px;
+        color: #333;
+        padding: 0 0 5px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .order_item .order_introduce .introduce_t .it_txt2 {
+        font-size: 13px;
+        color: #333;
+        padding: 0 0 5px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .order_item .order_introduce .introduce_t .it_txt3 {
+        font-size: 13px;
+        color: #6e6e6e;
+        padding: 0 0 10px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .order_item .order_introduce .introduce_b {
+        background: #F2F2F2;
+        padding: 10px 0 0 25px;
+        display: inline-block;
+        width: 665px;
+    }
+
+    .order_item .order_introduce .introduce_b .ib_half {
+        float: left;
+        width: 45%;
+        margin: 0 5% 10px 0;
+    }
+
+    .order_item .order_introduce .introduce_b .ib_half .ibh_tit {
+        font-size: 13px;
+        color: #333;
+        float: left;
+    }
+
+    .order_item .order_introduce .introduce_b .ib_half .ibh_con {
+        font-size: 13px;
+        color: #333;
+    }
+
+    .order_item .order_contact {
+        float: left;
+        width: 300px;
+    }
+
+    .order_item .order_contact .contact_t {
+        padding: 20px 0 20px;
+        text-align: center;
+        background: #f2f2f2;
+    }
+
+    .order_item .order_contact .contact_t .ct_txt1 {
+        font-size: 18px;
+        color: #333;
+        padding: 0 0 5px;
+    }
+
+    .order_item .order_contact .contact_b {
+        display: inline-block;
+        width: 205px;
+        padding: 10px 10px 0;
+    }
+
+    .order_item .order_contact .contact_b .cb_tit {
+        float: left;
+        font-size: 13px;
+        color: #333;
+    }
+
+    .order_item .order_contact .contact_b .cb_con {
+        padding: 0 0 0 65px;
+    }
+</style>
+<div class="w1200 clearfix">
+
+    <div class="order_list">
+        {$data.content}
+    </div>
+</div>
+
+
+<include file="Public:footer"/>

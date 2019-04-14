@@ -1,0 +1,39 @@
+<include file="Public:header"/>
+<div class="main">
+    <div class="newsbox">
+        <div class="newsl">
+            <div class="areatop">按地区查询微信 </div>
+            <div class="arearecommend">热门城市：
+                <volist name="recommendlist" id="vo">
+                    <if condition="$vo.area_type eq 1">
+                        <a href="{:U('Weixin/index',array('catid'=>$data['id'],'province'=>$vo['id']))}" title="{$vo['area_name']}" target="_blank">{$vo['area_name']}</a>
+                        <else />
+                        <a href="{:U('Weixin/index',array('catid'=>$data['id'],'city'=>$vo['id']))}" title="{$vo['area_name']}" target="_blank">{$vo['area_name']}</a>
+                    </if>
+                </volist>
+            </div>
+            <div class="arealist">
+                <div class="areaselect">按照省份选择：</div>
+                <ul>
+                    <volist name="arealist" id="vo">
+                    <li>                            
+                        <span><a href="{:U('Weixin/index',array('catid'=>$data['id'],'province'=>$vo['id']))}" title="{$vo['area_name']}" target="_blank">{$vo['area_name']}</a></span>
+                        <notempty name="vo.subarealist">    
+                        <volist name="vo.subarealist" id="subvo">
+                            <a href="{:U('Weixin/index',array('catid'=>$data['id'],'city'=>$subvo['id']))}" title="{$subvo['area_name']}" target="_blank">{$subvo['area_name']}</a>
+                        </volist>
+                        </notempty>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+        </div>
+        <div class="newsr">
+        <include file="Public:ggw" />
+        <include file="Public:gzphb" />
+        <include file="Public:wxzx" />
+        <include file="Public:zxsl" />
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

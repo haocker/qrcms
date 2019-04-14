@@ -1,0 +1,400 @@
+<include file="Public:header"/>
+<div class="w1200 clearfix pt20">
+    <div class="w1200">
+
+
+
+        <p class=" breadNav">
+            <b>
+                我的位置：
+            </b>
+            <a href="__APP__">首页</a> &gt;
+            <volist name="position" id="vo">
+                <a href="{:U('Weixin/index',array('id'=>$vo['id']))}">{$vo.catname}</a> &gt;
+            </volist>
+        </p>
+
+        <div class="cateNav">
+
+            <div class="subj cateNav_ny clearfix">
+
+                <div class="clearfix" style="padding:30px; overflow:hidden;">
+                    <div class="iframe">
+                        <!--<div style="text-align: center;margin-bottom: 5px;"><img src="images/warn1.png" style="border: 0;" alt="warn" /></div>-->
+                        <!--<span class="expired" style="display: none;"></span>-->
+
+                        <p class="checkCode"><span class="active">封面</span><span>二维码</span></p>
+                        <span class="shiftcode"><img width="227" height="227" src="<empty name='data.logo'><empty name='data.weblogo'>../Public/images/nopic.gif<else />{$data.weblogo}</empty><else />__ROOT__/Uploads{$data.logo}</empty>"></span>
+                        <span class="shiftcode" style="display: none;"><img width="227" height="227" src="<empty name='data.qrcode'><empty name='data.webqrcode'>../Public/images/nopic.gif<else />{$data.webqrcode}</empty><else />__ROOT__/Uploads{$data.qrcode}</empty>" alt="二维码"></span>
+                        <script>
+                            $(".checkCode span").hover(function () {
+                                $(".checkCode span").removeClass("active");
+                                $(this).addClass("active");
+                                var _idx = $(this).index();
+                                $(".shiftcode").hide();
+                                $(".shiftcode").eq(_idx).show();
+                            });
+                        </script>
+
+                        <!--<div class="tool">
+                            <div class="toolbg">
+                                <a class="des" href="#">
+                                    我要美化
+                                </a>
+                                <a href="#">
+                                    <img src="/images/codeicon.jpg" class="imglist_li" alt="二维码图标">
+                                </a>
+                            </div>
+                        </div>-->
+                        <p class="mt10 mb10" style="text-align: center;">
+                            <a href="{:U('Member/addtj')}" style="padding: 3px 8px;background: #8ec31f;color: #fff;">我要上热门&gt;&gt;</a>
+                        </p>
+
+                        <div class="page_ma clearfix">
+
+                            <a href="<empty name="prevdata.id">#<else/>/index.php?m=weixin&a=show&id={$prevdata.id}</empty>" class="btn_orange">
+                                &lt;上一页
+                            </a>
+
+
+                            <a href="<empty name="nextdata.id">#<else/>/index.php?m=weixin&a=show&id={$nextdata.id}</empty>" class="btn_orange">
+                                下一页&gt;
+                            </a>
+                            
+                        </div>
+                        <!--<p class="mt10 mb10" style="margin-top: 20px;text-align: center;">-->
+                            <!--<a href="/ad_group?t=82" style="padding: 5px 10px;margin: 0 1px;background: #dfe5f9;color: #000;font-family:'宋体'">微信红包群</a>-->
+                            <!--<a href="/ad_group" style="padding: 5px 10px;margin: 0 1px;background: #dfe5f9;color: #000;font-family:'宋体'">红包群</a>-->
+                        <!--</p>-->
+                    </div>
+                    <div class="des_info" style="width:447px;">
+                        <div class="clearfix">
+                            <ul>
+                                <li style="border-bottom:1px dashed #ededed; text-align:center;line-height:34px;">
+
+                                    <span class="des_info_text" style=" font-size:20px;">
+                                        <b> {$data.title}</b>
+
+                                    </span>
+
+                                </li>
+
+                                <li>
+                                    <span class="title" style=" width:43px;">
+                                        简介：
+                                    </span>
+                                </li>
+                                <li style="min-height:80px;">
+                                    <span class="des_info_text2" style="width:380px; margin-left:48px;">
+                                        {$data.content}
+                                    </span>
+                                </li>
+                                <ul class="other-info">
+                                    <li style="width:230px;height: 40px">
+                                        <i class="wxqicon_1 weixinqunICON">
+                                        </i>
+                                        分类：
+                                        <volist name="position" id="vo"><a href="{:U('Weixin/index',array('id'=>$vo['id']))}" class="btnCity">{$vo.catname}</a>&nbsp;</volist>
+                                    </li>
+                                    <li style="width:190px;height: 40px">
+                                        <i class="wxqicon_2 weixinqunICON">
+                                        </i>
+                                        地区：
+                                        <if condition="($data.city neq '-1') and ($data.city neq '')">
+                                            <a href="/index.php?m=weixin&a=index&city={$data.city}" class="btnCity">{$data.city|getAreasName}</a>
+                                        </if>
+                                    </li>
+                                    <li style="width:230px;height: 40px">
+                                        <i class="wxqicon_3 weixinqunICON">
+                                        </i>
+                                        时间：
+                                        {$data.create_time|toDate='Y-m-d'}
+                                    </li>
+
+                                    <li style="width:190px;height: 40px" class="tag ellips">
+                                        <i class="wxqicon_4 weixinqunICON">
+                                        </i>
+                                        热度：
+                                        {$data.hits}
+
+                                    </li>
+                                </ul>
+                                <li>
+
+                                    <span class="title" style=" width:60px;">
+                                        微信号：
+                                    </span>
+                                    <span class="des_info_text2" style="width:140px;color:#8ec31f;">
+                                        {$data.wxaccount}
+                                    </span>
+
+                                    <span class="ml15">
+                                        QQ：
+                                        <span class="Pink">
+                                            {$data.qq}
+                                        </span>
+                                    </span>
+                                </li>
+
+                                <li>
+
+
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="p_c">
+                            <ul>
+                                <li style="width: 20%;" onclick="xh(this,{$data['id']},'xh')">
+                                    <span class="con_zan weixinqunICON prise">
+                                    </span>
+                                    <p class="data">
+                                        <strong>{$data.xh}</strong>个赞
+                                    </p>
+                                </li>
+                                <li style="width: 20%;" onclick="xh(this,{$data['id']},'nxh')">
+                                    <span class="con_cai weixinqunICON dislike">
+                                    </span>
+                                    <p class="data">
+                                        <strong>{$data.nxh}</strong>次踩
+                                    </p>
+                                </li>
+                                <li style="width: 20%;">
+                                    <span class="fenx weixinqunICON">
+                                    </span>
+                                    <p>
+                                        分享
+                                    </p>
+                                    <div class="tip" style="top: -176px; left: 33.5px; display: none;">
+                                        <div class="bdsharebuttonbox bdshare-button-style0-32" style="width:32px;text-align: center;" data-bd-bind="1437446036079">
+                                            <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间" style="margin:5px 0 5px 0;">
+                                            </a>
+                                            <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博" style="margin:5px 0 5px 0;">
+                                            </a>
+                                            <a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博" style="margin:5px 0 5px 0;">
+                                            </a>
+                                        </div>
+                                        <script>
+                                            window._bd_share_config = {
+                                                "common": {
+                                                    "bdSnsKey": {},
+                                                    "bdText": "",
+                                                    "bdMini": "2",
+                                                    "bdMiniList": false,
+                                                    "bdPic": "",
+                                                    "bdStyle": "0",
+                                                    "bdSize": "32"
+                                                },
+                                                "share": {}
+                                            };
+                                            with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(- new Date() / 36e5)];
+                                        </script>
+                                    </div>
+                                </li>
+                                <li style="width: 20%;">
+                                    <a href="">
+                                        <span class="zhuanf weixinqunICON">
+                                        </span>
+                                    </a>
+                                    <p>
+                                        手机端
+                                    </p>
+                                    <div class="tip">
+                                        <a href="<yufu:other settag="qrcode" />" download target="_blank"><p class="wxcode"><i></i><img src="<yufu:other settag="qrcode" />" alt="微信转发"></p></a>
+                                        <p><b class="Pink">请保存图片，</b>可随时访问微信群手机端！</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tags">
+
+                            {$data.tag|changeA=###,$position[0]['id']}
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix">
+                </div>
+
+            </div>
+            <div style="margin-top: 10px;">
+            </div>
+
+
+
+            <div class="subj">
+                <div class="title_r">
+                    <div class="subs ml20">
+                        <h2 class="active">
+                            <span class="weixinqunICON wxICON_6">
+                            </span>
+                            品牌推荐
+                        </h2>
+                    </div>
+                    <a href="{:U('Member/tjlist')}" target="_blank">
+                        <span style="display: block;" class="more">
+                        </span>
+                    </a>
+                </div>
+                <ul class="gjqun clearfix">
+                    <yufu:tuijian recommendid="3" order="rand()" num="18">
+                        <li>
+                            <a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}"><img src="<empty name='tuijian.logo'><empty name='tuijian.weblogo'>../Public/images/nopic.gif<else />{$tuijian.weblogo}</empty><else />__ROOT__/Uploads{$tuijian.logo}</empty>" alt="{$tuijian.title|msubstr=0,6}"></a>
+                            <span class="ellips">
+                                <a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}">
+                                    {$tuijian.title|msubstr=0,6}
+                                </a>
+                            </span>
+                        </li>
+                    </yufu:tuijian>
+
+
+
+
+                </ul>
+            </div>
+            <div class="subj">
+                <div class="title_r">
+                    <div class="subs ml20">
+                        <h2 class="active">
+                            <span class="weixinqunICON wxICON_6">
+                            </span>
+                            相关二维码
+                        </h2>
+                    </div>
+                </div>
+                <ul class="gjqun clearfix">
+                    <yufu:weixin catid="'.$data['catid'].'" order="rand()" num="18">
+                        <li>
+                            <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}"><img src="<empty name='weixin.logo'><empty name='weixin.weblogo'>../Public/images/nopic.gif<else />{$weixin.weblogo}</empty><else />__ROOT__/Uploads{$weixin.logo}</empty>" alt="{$weixin.title|msubstr=0,6}"></a>
+                            <span class="ellips">
+                                <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}">
+                                    {$weixin.title|msubstr=0,6}
+                                </a>
+                            </span>
+                        </li>
+                    </yufu:weixin>
+                </ul>
+            </div>
+        </div>
+        <div class="side side_ny">
+            <!--<div style="margin-bottom: 10px;"><a href="http://www.jianzhiwang.com/" target="_blank"><img src="http://weixinqun.com/images/jianzhiwang.jpg" alt="兼职网" /></a></div>-->
+            <div style="text-align:center;">
+                <a style="background-color: rgb(223, 228, 249); padding:5px; width:80px;display: inline-block;" href="https://www.weixinqun.net/" target="_blank">微信群发布</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;display: inline-block;" href="http://www.weixinqun.org/" target="_blank">微信群推广</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;display: inline-block;" href="https://www.jianzhiwang.com/" target="_blank">在家兼职</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;display: inline-block;" href="http://www.weixin.org/" target="_blank">微信号推广</a>
+            </div>
+            <div style="text-align:center;">
+                <a style="background-color: rgb(223, 228, 249); padding:5px; width:80px;margin-top: 8px;display: inline-block;" href="http://www.9877788.com/" target="_blank">微信群导航</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.weixingongzhonghao.com/" target="_blank">微信公众号</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.longxia.com/" target="_blank">小龙虾价格</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.chongwugou.com/" target="_blank">宠物狗领养</a>
+            </div>
+            <div style="text-align:center;">
+                <a style="background-color: rgb(223, 228, 249); padding:5px; width:80px;margin-top: 8px;display: inline-block;" href="http://www.jianzhi.net/" target="_blank">兼职</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.jianzhiwang.com/" target="_blank">兼职网</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.jianzhiwang.com/Task/index.html" target="_blank">兼职赚钱</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.jianzhi.net" target="_blank">网络兼职</a>
+            </div>
+            <div style="text-align: center;">
+                <a style="background-color: rgb(223, 228, 249); padding:5px; width:80px;margin-top: 8px;display: inline-block;" href="http://www.zhenrenmajiang.com/" target="_blank">真人麻将</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.jianzhi.net/Index/task.html" target="_blank">正规兼职</a>
+                <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="https://www.jianzhiwang.com/" target="_blank">网上赚钱</a>
+                <a style="background: url('http://cpro.baidustatic.com/cpro/ui/noexpire/img/4.0.0/pc_ads.1x.png') no-repeat right bottom; background-color:rgb(223, 228, 249); padding:5px; width:80px; display: inline-block;margin-top: 8px;" href="http://www.weixin3.com/" target="_blank">小程序</a>
+                <!--<a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.hongbaowang.com/" target="_blank">红包网</a>-->
+            </div>
+            <!--<div style="text-align: center;">
+            <a style="background-color: rgb(223, 228, 249); padding:5px; width:80px;margin-top: 8px;display: inline-block;" href="http://www.sohongbao.com/" target="_blank">搜红包 </a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:80px;margin-top: 8px;display: inline-block;" href="http://www.hongbaoqun.com/" target="_blank">红包群</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:110px;margin-top: 8px;display: inline-block;" href="http://www.weixinhongbao.com/" target="_blank">微信红包群</a>
+            <a style="background: url('http://cpro.baidustatic.com/cpro/ui/noexpire/img/4.0.0/pc_ads.1x.png') no-repeat right bottom; background-color:rgb(223, 228, 249); padding:5px; width:80px; display: inline-block;margin-top: 8px;" href="http://www.weixin3.com/" target="_blank">小程序</a>
+            </div>-->
+            <!-- 轮播 -->
+            <div class="title mt20">
+                <div class="subs">
+                    <h4>
+                        微信文章
+                    </h4>
+                </div>
+                <a href="{:U('Article/index',array('id'=>55))}" target="_blank">
+                    <span style="display: block;" class="more">
+                    </span>
+                </a>
+            </div>
+            <div class="info_fr ml20">
+                <ul>
+
+                    <yufu:article order="id desc" num="12">
+                        <li class="ellips weixinqunICON">
+                            <a href="{:U('Article/show',array('id'=>$article['id']))}" target="_blank" title="{$article.title}">{$article.title|msubstr=0,20}</a>
+                        </li>
+                    </yufu:article>
+
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('#pubaccount').click(function(){
+            alert('a');
+            copyToClipBoard("aaaaaaaaaaaaaaa");
+        })
+        
+    })
+    function xh(cur,id,type){
+        $.get("{:U('Weixin/xh')}",{id:id,type:type},function(data){
+            if(data.status==1){
+                $(cur).children('.data').children('strong').html(data.info);
+            }else{
+                alert(data.info);
+            }
+            
+       });
+    }
+</script>
+<script type="text/javascript" language="javascript">
+        //复制到剪切板js代码
+        function copyToClipBoard(s) {
+            
+            //alert(s);
+            if (window.clipboardData) {
+                window.clipboardData.setData("Text", s);
+                alert("已经复制到剪切板！"+ "\n" + s);
+            } else if (navigator.userAgent.indexOf("Opera") != -1) {
+                window.location = s;
+            } else if (window.netscape) {
+
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                } catch (e) {
+                    alert("被浏览器拒绝！\n请在浏览器地址栏输入'about:config'并回车\n然后将'signed.applets.codebase_principal_support'设置为'true'");
+                }
+                var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+                if (!clip)
+                    return;
+                var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+                if (!trans)
+                    return;
+                trans.addDataFlavor('text/unicode');
+                var str = new Object();
+                var len = new Object();
+                var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+                var copytext = s;
+                str.data = copytext;
+                trans.setTransferData("text/unicode", str, copytext.length * 2);
+                var clipid = Components.interfaces.nsIClipboard;
+                if (!clip)
+                    return false;
+                clip.setData(trans, null, clipid.kGlobalClipboard);
+                alert("已经复制到剪切板！" + "\n" + s)
+            }else{
+
+            }
+        }
+    </script>
+<include file="Public:footer"/>

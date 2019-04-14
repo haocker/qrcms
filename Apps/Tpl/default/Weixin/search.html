@@ -1,0 +1,108 @@
+<include file="Public:header"/>
+<div class="main">
+    <div class="position">
+        <span>当前位置：</span>
+        <a href="__APP__">首页</a> &gt; 
+        <volist name="position" id="vo">
+            <a href="{:U('Weixin/search',array('id'=>$vo['id'],'keyword'=>$text))}">{$vo.catname}</a> &gt; 
+        </volist>
+    </div>
+    <div class="newsbox">
+        <div class="newsl">
+            <div class="superSearch">
+                
+                <empty name="catid">
+                <assign name="cat" value="$parentcatid" />
+                <else />
+                <assign name="cat" value="$catid" />
+                </empty>
+
+                <div class="hycatalog">
+                    <div class="catalog1">
+                        <div class="cata-lft">分类:</div>
+                        <div class="cata-rht">
+                            <a <if condition="($parentcatid eq '') and ($catid eq '')">class="title current"<else />class="title"</if> href="{:U('Weixin/search',array('id'=>$id,'keyword'=>$text,'province'=>$province,'city'=>$city))}">全部</a>
+                            <volist name="categorylist" id="category2">
+                                <eq name="category2['level']" value="2">
+                                <a <if condition="($parentcatid eq $category2['id'])">class="title current"<else />class="title"</if> href="{:U('Weixin/search',array('id'=>$id,'catid'=>$category2['id'],'keyword'=>$text,'province'=>$province,'city'=>$city))}" title="{$category2['catname']}" >{$category2['catname']}</a>
+                                </eq>
+                            </volist>
+                        </div>
+                    </div>
+                    <notempty name="childcatlist">
+                    <div class="catalog2">
+                        <volist name="childcatlist" id="category3">
+                             <a <if condition="($parentcatid neq '') and ($catid eq $category3['id'])">class="current"</if> href="{:U('Weixin/search',array('id'=>$id,'catid'=>$category3['id'],'keyword'=>$text,'province'=>$province,'city'=>$city))}" title="{$category3['catname']}" >{$category3['catname']}</a>
+                        </volist>
+                    </div>
+                    </notempty>
+                </div>
+                <div class="hycatalog">
+                    
+                    <div class="catalog1">
+                        <div class="cata-lft">地区:</div>
+                        <div class="cata-rht">
+                            <a <if condition="($province eq '') and ($city eq '')">class="title current"<else />class="title"</if> href="{:U('Weixin/search',array('id'=>$id,'catid'=>$cat,'keyword'=>$text))}">全部</a>
+                            <volist name="provincelist" id="vp">
+                                <a <if condition="($province eq $vp['id'])">class="title current"<else />class="title"</if> href="{:U('Weixin/search',array('id'=>$id,'province'=>$vp['id'],'catid'=>$cat,'keyword'=>$text))}" title="{$vp['area_name']}" >{$vp['area_name']}</a>
+                            </volist>
+                        </div>
+                    </div>
+                    <notempty name="citylist">
+                    <div class="catalog2">
+                        <volist name="citylist" id="vc">
+                             <a <if condition="($province neq '') and ($city eq $vc['id'])">class="current"</if> href="{:U('Weixin/search',array('id'=>$id,'city'=>$vc['id'],'province'=>$province,'catid'=>$catid,'keyword'=>$text))}" title="{$vc['area_name']}" >{$vc['area_name']}</a>
+                        </volist>
+                    </div>
+                    </notempty>
+                </div>
+
+            </div>
+            <notempty name="list">
+            <div class="newslist">
+                <ul>
+                    <volist name="list" id="vo">
+                     
+                    <li {$key%2==0?'':'class="whitebg"'}>                            
+                        <dl>
+                            
+                            <dt><neq name="vo['status']" value="1"><img src="<empty name='vo.logo'><empty name='vo.weblogo'>../Public/images/nopic.gif<else />{$vo.weblogo}</empty><else />__ROOT__/Uploads{$vo.logo}</empty>"><else /><a href="{:U('Weixin/show',array('id'=>$vo['id']))}" target="_blank"><img src="<empty name='vo.logo'><empty name='vo.weblogo'>../Public/images/nopic.gif<else />{$vo.weblogo}</empty><else />__ROOT__/Uploads{$vo.logo}</empty>"></a></neq></dt>
+                            <dd class="tit"><neq name="vo['status']" value="1"><b>{$vo.pubaccount}</b><else /><a href="{:U('Weixin/show',array('id'=>$vo['id']))}" class="ssytj" title="{$vo.pubaccount}" target="_blank"><b>{$vo.pubaccount}</b></a></neq></dd>
+                            <dd class="time">{$vo.hits}&nbsp;人关注&nbsp;&nbsp;<img src="../Public/images/xx{$vo.xingji}.jpg" />&nbsp;&nbsp;Tags:{$vo.tag|changeA}</dd>
+                            <dd class="desc">{$vo.content|strip_tags|msubstr=0,85}</dd>
+                            <eq name="vo['status']" value="0"><span><img src="../Public/images/wtg.png" /></span></eq>
+                            <eq name="vo['status']" value="2"><span><img src="../Public/images/shz.png" /></span></eq>
+                        </dl>
+                        <div class="pop">
+                            <div class="panel">
+                                <div class="ewm"><img src="<empty name='vo.qrcode'><empty name='vo.webqrcode'>../Public/images/nopic.gif<else />{$vo.webqrcode}</empty><else />__ROOT__/Uploads{$vo.qrcode}</empty>" width="160" height="160"></div>
+                                <div class="title">{$vo.pubaccount|msubstr=0,6}</div>
+                                <div class="star"><img src="../Public/images/xx{$vo.xingji}.jpg" /></div>
+                                <div class="rate">{$vo.hits}人关注</div>
+                                <div class="des"><p>{$vo.content|strip_tags|msubstr=0,20}</p></div>
+                            </div>
+                            <div class="arrow">
+                                <div class="arrow1"></div>
+                                <div class="arrow2"></div>
+                           </div> 
+                        </div>
+                    </li>
+                    </volist>
+                </ul>
+                
+            </div>
+            <div class="page">
+                {$page}
+            </div>
+            </notempty>
+        </div>
+        <div class="newsr">
+            <include file="Public:ggw" />
+            <include file="Public:gzphb" />
+            <include file="Public:wxzx" />
+            <include file="Public:zxsl" />
+        </div>
+    </div>
+</div>
+
+<include file="Public:footer"/>

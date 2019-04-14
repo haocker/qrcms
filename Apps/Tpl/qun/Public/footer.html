@@ -1,0 +1,82 @@
+<div class="footer mt20">
+    <div class="w1200">
+        <!--<span class="fl" style="line-height: 38px; margin-right:20px;"><b>合作伙伴：</b>（qq:1819088888）</span>-->
+        <ul class="footkey">
+            <yufu:other settag="hotcat" />
+        </ul>
+
+        <div class="fl ewm mt20">
+            <img src="<yufu:other settag="qrcode" />" alt="二维码">
+
+            <div class="fl">
+            </div>
+
+        </div>
+
+
+        <div class="fl mt20">
+            <dl>
+                <dt>扫描二维码</dt>
+                <dd class="caaa">进微信群手机站</dd>
+                <dt>更多帮助信息</dt>
+                <!--<dd><a href="/about?id=24">帮助中心</a></dd>-->
+                <dd><a href="/article?id=823479">骗子投诉</a></dd>
+            </dl>
+
+            <dl>
+
+                <dt>关于</dt>
+                <yufu:article catid="175" order="rand()" num="3">
+                    <dd>
+                        <a href="{:U('Article/show',array('id'=>$article['id']))}" target="_blank" title="{$article.title}">{$article.title}</a>
+                    </dd>
+                </yufu:article>
+
+            </dl>
+
+            <dl>
+
+                <dt>合作</dt>
+
+                <yufu:article catid="176" order="rand()" num="3">
+                    <dd>
+                        <a href="{:U('Article/show',array('id'=>$article['id']))}" target="_blank" title="{$article.title}">{$article.title}</a>
+                    </dd>
+                </yufu:article>
+
+
+            </dl>
+
+            <dl>
+
+                <dt>声明</dt>
+
+                <yufu:article catid="177" order="rand()" num="3">
+                    <dd>
+                        <a href="{:U('Article/show',array('id'=>$article['id']))}" target="_blank" title="{$article.title}">{$article.title}</a>
+                    </dd>
+                </yufu:article>
+
+
+            </dl>
+
+            <dl>
+
+                <dt>更多</dt>
+
+                <yufu:article catid="178" order="rand()" num="3">
+                    <dd>
+                        <a href="{:U('Article/show',array('id'=>$article['id']))}" target="_blank" title="{$article.title}">{$article.title}</a>
+                    </dd>
+                </yufu:article>
+
+
+            </dl>
+
+        </div>
+
+        <div class="fr copy mt20">WWW.JIAQUN.VIP <br>Copyright © 2018 <!-- <br />琼ICP备17002835号-4 --></div>
+
+    </div>
+</div>
+</body></html>

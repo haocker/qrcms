@@ -1,0 +1,121 @@
+<include file="Member:header" />
+<script type="text/javascript" src="../Public/js/select-option-disabled-emulation.js"></script>
+<link rel="stylesheet" type="text/css" href="../Public/js/calendar/jscal2.css"/>
+<link rel="stylesheet" type="text/css" href="../Public/js/calendar/border-radius.css"/>
+<link rel="stylesheet" type="text/css" href="../Public/js/calendar/win2k.css"/>
+<script type="text/javascript" src="../Public/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="../Public/js/calendar/lang/en.js"></script>
+<div class="memberbox">   
+        <div class="memberleft">
+            <include file="Member:left" />
+        </div>
+        <div class="memberright">
+            <div class="member_detail">在线充值</div>
+            <div class="member_content">
+                <form method='post' id="form1" name="form1" action="{:U('Member/alipayapi')}">
+                    <div style='border-bottom: 1px dashed #47B717;'>
+                        <label>账户余额：</label>
+                        <span class="star" style="font-size: 22px;font-family: Georgia,Arial;font-weight: 700;}">{:getMemberAmount(session('id'),session('account'))}</span><span>元</span>
+                    </div>
+                    <div>
+                        <label>充值金额：</label>
+                        <input type="text" name="WIDprice" class="ipt2">
+                        <span class="star">*</span>
+                        <span class="tip">请输入充值金额</span>
+                    </div>
+                    <div>
+                        <label>充值方式：</label>
+                        <present name="paytypelist">
+                            <volist name='paytypelist' id='paytypevo'>
+                                <input type="radio" name="WIDtype" value="{$paytypevo.id}" checked=true style="height:24px;line-height: 24px;" /><span>支付宝</span>
+                                
+                            </volist>
+                            <else />
+                            <span>本站暂未开启在线支付功能，如需帮助请联系管理员。</span>
+                        </present>
+                        <span class="star">*</span>
+                        <span class="tip"></span>
+                    </div>
+                    <div>
+                        <label>备注：</label>
+                        <textarea name="WIDbody" /></textarea>
+                    </div>
+                    <div>
+                        <label>验证码：</label>
+                     
+                        <input type="text" style="width: 95px;" id="verify" name="verify" class="ipt3"> 
+                        <img id="verifyImg" src="{:U('Member/verify')}" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer" align="absmiddle">
+                      
+                    </div>
+                  <div>
+                      <label>&nbsp;</label>
+                      <input type="submit" id="submit" value="提 交" class="submit">
+                  </div>
+                  
+               </form>
+            </div>
+        </div>
+            
+            
+</div>
+
+
+<script type="text/javascript">
+    function starttime(){
+        var starttime=$("#starttime").val();
+        var endtime=$("#endtime").val();
+        
+        if(starttime==="" || endtime===""){
+            return;
+        }
+
+        if(starttime>endtime){
+           alert('结束日期不能小于开始日期');
+           $("#intergral").val('');
+        }else{
+            //计算出相差天数
+            var days=daysBetween(starttime,endtime)+1;
+            var intergralnum=$('#recommendid option:selected').attr('name');
+            $("#intergral").val(days*intergralnum);
+        }
+    }
+        function endtime(){
+            var starttime=$("#starttime").val();
+            var endtime=$("#endtime").val();
+            if(starttime==="" || endtime===""){
+                return;
+            }
+       
+            if(starttime>endtime){
+               alert('结束日期不能小于开始日期');
+               $("#intergral").val('');
+            }else{
+        
+                //计算出相差天数
+                var days=daysBetween(starttime,endtime)+1;
+                var intergralnum=$('#recommendid option:selected').attr('name');
+                $("#intergral").val(days*intergralnum);
+            }
+        };
+
+        function daysBetween(DateOne,DateTwo) {  
+
+            var OneMonth = DateOne.substring(5,DateOne.lastIndexOf ('-')); 
+            var OneDay = DateOne.substring(DateOne.length,DateOne.lastIndexOf ('-')+1); 
+            var OneYear = DateOne.substring(0,DateOne.indexOf ('-'));
+
+            var TwoMonth = DateTwo.substring(5,DateTwo.lastIndexOf ('-')); 
+            var TwoDay = DateTwo.substring(DateTwo.length,DateTwo.lastIndexOf ('-')+1); 
+            var TwoYear = DateTwo.substring(0,DateTwo.indexOf ('-'));
+
+            var cha=((Date.parse(OneMonth+'/'+OneDay+'/'+OneYear)- Date.parse(TwoMonth+'/'+TwoDay+'/'+TwoYear))/86400000);   
+            return Math.abs(cha); 
+        }
+        //验证码刷新
+    function fleshVerify(){ 
+        //重载验证码
+        $('#verifyImg').attr('src',"{:U('Member/verify',array('t'=>time()))}");
+    }
+</script>
+
+<include file="Public:footer" />

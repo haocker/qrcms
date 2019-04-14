@@ -1,0 +1,12 @@
+<include file="Public:top" />
+    <include file="Public:header" />
+            <div class="content-show">
+                <h3>{$data.title}</h3>
+                 <span style="font-size: 12px;">发布时间：{$data.create_time|toDate='Y-m-d'}</span>
+                <br>
+
+                <notempty name="data.thumb"><img src="__ROOT__/Uploads{$data['thumb'][0]}" style="max-width: 90%"/><br></notempty>
+                 {$data.content}
+                 
+            </div> 
+<include file="Public:bottom" />

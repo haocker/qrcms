@@ -1,0 +1,202 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="../Public/js/calendar/jscal2.css" />
+<link rel="stylesheet" type="text/css" href="../Public/js/calendar/border-radius.css" />
+<link rel="stylesheet" type="text/css" href="../Public/js/calendar/win2k.css" />
+<script type="text/javascript" src="../Public/js/calendar/calendar.js"></script>
+<script type="text/javascript" src="../Public/js/calendar/lang/en.js"></script>
+<link href="../Public/css/center.css" rel="stylesheet" />
+<link href="../Public/css/table_form.css" rel="stylesheet" />
+<style>
+    .form input[type=submit] {
+        display: block;
+        width: 120px;
+        height: 32px;
+        border: none;
+        border-radius: 5px;
+        background: #ff3265;
+        color: #ffffff;
+        cursor: pointer;
+    }
+</style>
+<div class="w1200 clearfix pt20">
+    <include file="Member:left" />
+    <div class="centerContent centerContent_index">
+        <div class="centerTitle">
+            <span class="centerICON icon_6">
+            </span>
+            <h2>
+                推荐设置
+            </h2>
+        </div>
+
+        <div class="moneyBox clearfix">
+            <form method='post' id="form1" name="form1" action="{:U('Member/addtj')}">
+
+                <div>
+                    <label>选择公号：</label>
+                    <select id="pubaccountid" name="wxid">
+                        <option value="">请选择</option>
+                        <volist name="pubaccountlist" id="pubvo">
+                            <option value="{$pubvo['id']}">{$pubvo['pubaccount']}</option>
+                        </volist>
+                    </select>
+                    <span id="pubaccountidTip"></span>
+                </div>
+
+                <div>
+                    <label>推荐位置：</label>
+                    <select id="recommendid" name="recommendid">
+                        <option value="" name="">请选择</option>
+                        <volist name="recommendlist" id="recommendvo">
+                            <option value="{$recommendvo.id}" name="{$recommendvo.intergral}">{$recommendvo.recommendname}</option>
+                        </volist>
+                    </select>
+                    <span id="recommendidTip"></span>
+                </div>
+
+                <div>
+                    <label>时间范围：</label>
+                    <input type="text" name="starttime" id="starttime" class="ipt3">
+                    <script type="text/javascript">
+                        Calendar.setup({
+                            weekNumbers: true,
+                            inputField: "starttime",
+                            trigger: "starttime",
+                            dateFormat: "%Y-%m-%d",
+                            showTime: true,
+                            minuteStep: 1,
+                            onSelect: function () { this.hide(); starttime(); }
+                        });
+                    </script>
+
+                    <span>至</span>
+
+                    <input type="text" name="endtime" id="endtime" class="ipt3">
+                    <script type="text/javascript">
+                        Calendar.setup({
+                            weekNumbers: true,
+                            inputField: "endtime",
+                            trigger: "endtime",
+                            dateFormat: "%Y-%m-%d",
+                            showTime: true,
+                            minuteStep: 1,
+                            onSelect: function () { this.hide(); endtime(); }
+                        });
+
+                    </script>
+                    <span id="timeTip"></span>
+                </div>
+
+                <div>
+                    <label>消费金币：</label>
+                    <input type="text" name="intergral" id="intergral" class="ipt2" style="background: #E9E8E2;" readonly="readonly">
+
+                </div>
+
+
+                <div class="form">
+                    <label>&nbsp;</label>
+                    <input type="submit" id="submit" value="提 交" class="submit">
+                </div>
+                <div class="t_tip" style="color: #21e02a">
+                    <yufu:other settag="tjsm" />
+                </div>
+            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#recommendid').change(function () {
+
+            var starttime = $("#starttime").val();
+            var endtime = $("#endtime").val();
+            if (starttime !== "" && endtime !== "") {
+
+                //计算出相差天数
+                var days = daysBetween(starttime, endtime) + 1;
+                var intergralnum = $('#recommendid option:selected').attr('name');
+                if (intergralnum === "") {
+                    alert('请选择推荐位置');
+                } else {
+                    $("#intergral").val(days * intergralnum);
+                }
+            }
+        });
+    });
+    function starttime() {
+        var starttime = $("#starttime").val();
+        var endtime = $("#endtime").val();
+
+        if (starttime === "" || endtime === "") {
+            return;
+        }
+
+        if (starttime > endtime) {
+            alert('结束日期不能小于开始日期');
+            $("#intergral").val('');
+        } else {
+            //计算出相差天数
+            var days = daysBetween(starttime, endtime) + 1;
+            var intergralnum = $('#recommendid option:selected').attr('name');
+            if (intergralnum === "") {
+                alert('请选择推荐位置');
+            } else {
+                $("#intergral").val(days * intergralnum);
+            }
+
+        }
+    }
+    function endtime() {
+        var starttime = $("#starttime").val();
+        var endtime = $("#endtime").val();
+        if (starttime === "" || endtime === "") {
+            return;
+        }
+
+        if (starttime > endtime) {
+            alert('结束日期不能小于开始日期');
+            $("#intergral").val('');
+        } else {
+
+            //计算出相差天数
+            var days = daysBetween(starttime, endtime) + 1;
+            var intergralnum = $('#recommendid option:selected').attr('name');
+            if (intergralnum === "") {
+                alert('请选择推荐位置');
+            } else {
+                $("#intergral").val(days * intergralnum);
+            }
+
+        }
+    }
+
+    function daysBetween(DateOne, DateTwo) {
+
+        var OneMonth = DateOne.substring(5, DateOne.lastIndexOf('-'));
+        var OneDay = DateOne.substring(DateOne.length, DateOne.lastIndexOf('-') + 1);
+        var OneYear = DateOne.substring(0, DateOne.indexOf('-'));
+
+        var TwoMonth = DateTwo.substring(5, DateTwo.lastIndexOf('-'));
+        var TwoDay = DateTwo.substring(DateTwo.length, DateTwo.lastIndexOf('-') + 1);
+        var TwoYear = DateTwo.substring(0, DateTwo.indexOf('-'));
+
+        var cha = ((Date.parse(OneMonth + '/' + OneDay + '/' + OneYear) - Date.parse(TwoMonth + '/' + TwoDay + '/' + TwoYear)) / 86400000);
+        return Math.abs(cha);
+    }
+
+</script>
+
+<include file="Public:footer" />

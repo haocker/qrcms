@@ -1,0 +1,74 @@
+<include file="Public:header" />
+<link href="../Public/css/center.css" rel="stylesheet" />
+<style>
+    .form input[type=submit] {
+        display: block;
+        width: 120px;
+        height: 32px;
+        border: none;
+        border-radius: 5px;
+        background: #ff3265;
+        color: #ffffff;
+        cursor: pointer;
+    }
+
+    .star {
+        color: #ff3265
+    }
+</style>
+<div class="w1200 clearfix pt20">
+    <include file="Member:left" />
+    <div class="centerContent centerContent_index">
+        <div class="centerTitle">
+            <span class="centerICON icon_6">
+            </span>
+            <h2>
+                修改资料
+            </h2>
+        </div>
+
+        <div class="moneyBox clearfix">
+            <form method='post' id="formInformation" name="formInformation" action="{:U('Member/checkInformation')}" enctype="multipart/form-data">
+                <div style="margin-bottom:20px">
+                    <table border="0" cellspacing="6" cellpadding="3">
+                        <tbody>
+                            <tr>
+                                <th>头像：</th>
+                                <td>
+                                    <notempty name="udata.thumb">
+                                        <img src="__ROOT__/Uploads/{$udata.thumb}" width="80" height="80" />
+                                        <a href="{:U('Member/delthumb',array('id'=>$udata['id'],'file'=>'thumb'))}" title="你确定要删除头像吗？">删除头像</a>
+                                        <else />
+                                        <input type="file" class="thumb" name="thumb" />
+                                    </notempty>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>昵称：</th>
+                                <td><input type="text" class="ipt4" name="nickname" value="{$udata.nickname}" /></td>
+                            </tr>
+                            <tr>
+                                <th>电子邮箱：</th>
+                                <td><input type="text" class="ipt6" name="email" value="{$udata.email}" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form">
+                    <input type="hidden" name="id" value="{$udata.id}">
+                    <input type="submit" id="submit" class="submit btn7" value="保 存">
+                </div>
+            </form>
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+<include file="Public:footer" />

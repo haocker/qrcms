@@ -1,0 +1,102 @@
+<include file="Public:header"/>
+<div class="main">
+    <div class="position">
+        <span>当前位置：</span>
+        <a href="__APP__">首页</a> &gt; 
+        <volist name="position" id="vo">
+            <eq name="vo['id']" value="87">
+            <a href="{:U('Weixin/area',array('id'=>$vo['id']))}">{$vo.catname}</a>&nbsp;&gt;
+                <volist name="positionarea" id="voarea">
+                    <neq name='voarea.level' value='0'>
+                    <present name="voarea.province">
+                        <a href="{:U('Weixin/index',array('catid'=>$voarea['id'],'province'=>$voarea['province']))}">{$voarea.areaname}</a>
+                    </present>
+                    <eq name="voarea.level" value='1'>
+                        <a href="{:U('Weixin/index',array('catid'=>$position[0]['id'],'province'=>$voarea['id']))}">{$voarea.areaname}</a>&nbsp;&gt;
+                    </eq>
+                    <eq name="voarea.level" value='2'>
+                        <a href="{:U('Weixin/index',array('catid'=>$position[0]['id'],'city'=>$voarea['id']))}">{$voarea.areaname}</a>
+                    </eq>
+                    </neq>
+                </volist>
+            <else />
+                <a href="{:U('Weixin/index',array('id'=>$vo['id']))}">{$vo.catname}</a>
+            </eq> &gt; 
+        </volist>
+    </div>
+    <div class="newsbox">
+        <div class="newsl">
+            <div class="newslist">
+                <ul>
+                    <volist name="list" id="vo">
+                    <li {$key%2==0?'':'class="whitebg"'}>                            
+                        <dl>
+                            <dt><neq name="vo['status']" value="1"><img src="<empty name='vo.logo'><empty name='vo.weblogo'>../Public/images/nopic.gif<else />{$vo.weblogo}</empty><else />__ROOT__/Uploads{$vo.logo}</empty>"><else /><a href="{:U('Weixin/show',array('id'=>$vo['id']))}" target="_blank"><img src="<empty name='vo.logo'><empty name='vo.weblogo'>../Public/images/nopic.gif<else />{$vo.weblogo}</empty><else />__ROOT__/Uploads{$vo.logo}</empty>"></a></neq></dt>
+                            <dd class="tit"><neq name="vo['status']" value="1"><b>{$vo.pubaccount}</b><else /><a href="{:U('Weixin/show',array('id'=>$vo['id']))}" class="lbytj" title="{$vo.pubaccount}" target="_blank"><b>{$vo.pubaccount}</b></a></neq><b style='color: red;'><eq name='vo.recommendid' value='3'>[推荐]</eq></b></dd>
+                            <dd class="time">{$vo.hits}&nbsp;人关注&nbsp;&nbsp;<img src="../Public/images/xx{$vo.xingji}.jpg" />&nbsp;&nbsp;Tags:<eq name="position[0]['id']" value="87">{$vo.tag|changeA}<else />{$vo.tag|changeA=###,$position[0]['id']}</eq></dd>
+                            <dd class="desc">{$vo.content|strip_tags|msubstr=0,85}</dd>
+                            <eq name="vo['status']" value="0"><span><img src="../Public/images/wtg.png" /></span></eq>
+                            <eq name="vo['status']" value="2"><span><img src="../Public/images/shz.png" /></span></eq>
+                        </dl>
+                        <div class="pop">
+                                <div class="panel">
+                                    <div class="ewm"><img src="<empty name='vo.qrcode'><empty name='vo.webqrcode'>../Public/images/nopic.gif<else />{$vo.webqrcode}</empty><else />__ROOT__/Uploads{$vo.qrcode}</empty>" width="160" height="160"></div>
+                                    <div class="title">{$vo.pubaccount|msubstr=0,6}</div>
+                                    <div class="star"><img src="../Public/images/xx{$vo.xingji}.jpg" /></div>
+                                    <div class="rate">{$vo.hits}人关注</div>
+                                    <div class="des"><p>{$vo.content|strip_tags|msubstr=0,20}</p></div>
+                                </div>
+                                <div class="arrow">
+                                    <div class="arrow1"></div>
+                                    <div class="arrow2"></div>
+                               </div> 
+                       </div>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="page">
+                {$page}
+            </div>
+        </div>
+        <div class="newsr">
+            <notempty name="childCatList">
+            <div class="childCat">
+                <div class="parent"><a href="{:U('Weixin/index',array('id'=>$data['id']))}">{$data.catname}</a></div>
+                
+                <ul>
+                    <volist name="childCatList" id="childCat">
+                    <li><a href="{:U('Weixin/index',array('id'=>$childCat['id']))}">{$childCat.catname}</a></li>
+                    </volist>
+                </ul>
+                
+            </div>
+            </notempty>
+            <notempty name="childAreaList">
+            <div class="childCat">
+                <div class="parent"><a href="{:U('Weixin/area',array('id'=>$position[0]['id']))}">{$position[0]['catname']}</a></div>
+                
+                <ul>
+                    <volist name="childAreaList" id="childArea">
+                        <eq name="childArea.area_type" value="1">
+                        <li><a href="{:U('Weixin/index',array('catid'=>$position[0]['id'],'province'=>$childArea['id']))}">{$childArea.area_name}</a></li>
+                        </eq>
+                        <eq name="childArea.area_type" value="2">
+                        <li><a href="{:U('Weixin/index',array('catid'=>$position[0]['id'],'city'=>$childArea['id']))}">{$childArea.area_name}</a></li>
+                        </eq>
+                    </volist>
+                </ul>
+                
+            </div>
+            </notempty>
+            
+            <div style="clear:both;"></div>
+            
+        <include file="Public:ggw" />
+        <include file="Public:gzphb" />
+        <include file="Public:wxzx" />
+        <include file="Public:zxsl" />
+        </div>
+    </div>
+</div>
+<include file="Public:footer"/>

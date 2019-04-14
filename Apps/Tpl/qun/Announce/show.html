@@ -1,0 +1,110 @@
+<include file="Public:header"/>
+<link href="../Public/css/style_zixun.css" rel="stylesheet" />
+<div class=" Pub clearfix" style=" border:1px solid #dcdcdc;">
+
+
+    <div class="cont_lf fl">
+
+        <div class="cont_location">
+            您现在的位置：
+            <a href="__APP__">首页</a> &gt;
+公告 &gt;
+        </div>
+
+        <div class="cont_nr">
+
+            <h2>{$data.title}</h2>
+
+            <span class="tips_cont" style="text-align:center">发布时间：{$data.create_time|toDate='Y-m-d H:i'}&nbsp;&nbsp;&nbsp; </span>
+
+
+
+
+
+            <notempty name="data.thumb"><img src="__ROOT__/Uploads{$data.thumb}" /><br></notempty>
+            {$data.content}
+
+
+
+        </div>
+
+
+
+        <!--<div class="ad"><font class="ding">99788</font><font class="zan">1646</font></div>-->
+
+
+
+        <div class="cont_sx">
+
+
+
+            <span>上一篇：<empty name="prevdata">第一篇<else /><a href="{:U('Article/show',array('id'=>$prevdata['id']))}" target="_blank">{$prevdata['title']|msubstr=0,20}</a></empty></span>
+
+
+
+
+
+            <span>下一篇：<empty name="nextdata">最后一篇<else /><a href="{:U('Article/show',array('id'=>$nextdata['id']))}" target="_blank">{$nextdata['title']|msubstr=0,20}</a></empty></span>
+
+
+
+        </div>
+
+
+    </div>
+
+    <div class="cont_rg fr ">
+        <div style="text-align:center;">
+            <a style="background-color: rgb(223, 228, 249); padding:5px; width:67px;display: inline-block;font-size: 12px;" href="https://www.weixinqun.net/" target="_blank">微信群发布</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:67px;display: inline-block;font-size: 12px;" href="http://www.weixinqun.org/" target="_blank">微信群推广</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:67px;display: inline-block;font-size: 12px;" href="https://www.jianzhiwang.com/" target="_blank">在家兼职</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:69px;display: inline-block;font-size: 12px;" href="http://www.weixin.org/" target="_blank">微信号推广</a>
+        </div>
+        <div style="text-align:center;">
+            <a style="background-color: rgb(223, 228, 249); padding:5px; width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.9877788.com/" target="_blank">微信群导航</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.weixingongzhonghao.com/" target="_blank">微信公众号</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.longxia.com/" target="_blank">小龙虾价格</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:69px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.chongwugou.com/" target="_blank">宠物狗领养</a>
+        </div>
+        <div style="text-align:center;">
+            <a style="background-color: rgb(223, 228, 249); padding:5px; width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.jianzhi.net/" target="_blank">兼职</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.jianzhiwang.com/" target="_blank">兼职网</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.jianzhiwang.com/Task/index.html" target="_blank">兼职赚钱</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:69px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.jianzhi.net" target="_blank">网络兼职</a>
+        </div>
+        <div style="text-align: center;">
+            <a style="background-color: rgb(223, 228, 249); padding:5px; width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.zhenrenmajiang.com/" target="_blank">真人麻将</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="http://www.jianzhi.net/Index/task.html" target="_blank">正规兼职</a>
+            <a style="background-color: rgb(223, 228, 249); padding:5px;width:67px;margin-top: 8px;display: inline-block;font-size: 12px;" href="https://www.jianzhiwang.com/" target="_blank">网上赚钱</a>
+            <a style="background: url('http://cpro.baidustatic.com/cpro/ui/noexpire/img/4.0.0/pc_ads.1x.png') no-repeat right bottom; background-color:rgb(223, 228, 249); padding:5px; width:69px; display: inline-block;margin-top: 8px;font-size: 12px;" href="http://www.weixin3.com/" target="_blank">小程序</a>
+        </div>
+
+        <div class="cont_yx">
+
+            <div class="cont_yx">
+
+                <strong><a href="#" target="_blank">精选文章</a></strong>
+
+                <ul class="cont_jxwz">
+
+                    <yufu:article catid="'.$data['catid'].'" order="rand()" num="12">
+                        <li>
+                            {$article.create_time|toDate='m-d'}&nbsp;&nbsp;
+                            <a href="{:U('Article/show',array('id'=>$article['id']))}" target="_blank" title="{$article.title}">{$article.title|msubstr=0,20}</a>
+                        </li>
+                    </yufu:article>
+
+
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="clr"></div>
+
+    </div>
+</div>
+
+<include file="Public:footer"/>

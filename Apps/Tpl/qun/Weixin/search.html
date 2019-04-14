@@ -1,0 +1,192 @@
+<include file="Public:header"/>
+<div class="container" style=" background:#fff; border-bottom:1px solid #ccc;">
+    <div class="w1200">
+        <div class="city_nav_inp title">
+            <span class="title_dqwx">
+                搜索结果
+            </span>
+            <div class="subs">
+
+                <h2 <if condition="($catid eq '')">class="active"<else />class=""</if>>
+
+                    <span class="weixinqunICON wxICON_6">
+                    </span>
+
+
+                    <a href="{:U('Weixin/search',array('id'=>$id,'keyword'=>$text))}">
+                        全部
+                    </a>
+
+                </h2>
+                <h2 <if condition="($catid eq '140')">class="active"<else />class=""</if>>
+
+                    <span class="weixinqunICON wxICON_6">
+                    </span>
+
+
+                    <a href="{:U('Weixin/search',array('id'=>$id,'catid'=>'140','keyword'=>$text))}">
+                        微信群
+                    </a>
+
+                </h2>
+
+                <h2 <if condition="($catid eq '53')">class="active"<else />class=""</if>>
+
+
+                    <a href="{:U('Weixin/search',array('id'=>$id,'catid'=>'53','keyword'=>$text))}">
+                        公众号
+                    </a>
+
+                </h2>
+
+                <h2 <if condition="($catid eq '139')">class="active"<else />class=""</if>>
+
+
+                    <a href="{:U('Weixin/search',array('id'=>$id,'catid'=>'139','keyword'=>$text))}">
+                        个人号
+                    </a>
+
+                </h2>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--筛选-->
+
+<div class="container">
+    <div class="w1200 clearfix pb10">
+        <empty name="catid">
+            <assign name="cat" value="$parentcatid" />
+            <else />
+            <assign name="cat" value="$catid" />
+        </empty>
+        <div class="assort-content bg clearfix mt20">
+            <div class="d1">
+                <span class="fl">
+                    <strong>地区:</strong>
+                </span>
+                <ul class="expend" id="citybox">
+                    <li <if condition="($province eq '') and ($city eq '')">class="active"<else />class=""</if>>
+                        <a href="{:U('Weixin/search',array('id'=>$id,'catid'=>$cat,'keyword'=>$text))}">全部</a>
+                    </li>
+                    
+                    <volist name="provincelist" id="vp">
+                        <li <if condition="($province eq $vp['id'])">class="active"<else />class=""</if>>
+                            <a href="{:U('Weixin/search',array('id'=>$id,'province'=>$vp['id'],'catid'=>$cat,'keyword'=>$text))}" title="{$vp['area_name']}" >{$vp['area_name']}</a>
+                        </li>
+                    </volist>
+                    
+                </ul>
+            </div>
+            <div class="d2">
+                <span class="fl">
+                    <strong>类型:</strong>
+                </span>
+
+
+                <ul class="expend" id="citybox">
+                    <li <if condition="($parentcatid eq '') and ($catid eq '')">class="active"<else />class=""</if>>
+                        <a href="{:U('Weixin/search',array('id'=>$id,'keyword'=>$text,'province'=>$province,'city'=>$city))}">全部</a>
+                    </li>
+                    <volist name="categorylist" id="category2">
+                        <eq name="category2['level']" value="2">
+                            <li <if condition="($parentcatid eq $category2['id'])">class="active"<else />class=""</if>>
+                                <a  href="{:U('Weixin/search',array('id'=>$id,'catid'=>$category2['id'],'keyword'=>$text,'province'=>$province,'city'=>$city))}" title="{$category2['catname']}" >{$category2['catname']}</a>
+                            </li>
+                        </eq>
+                    </volist>
+
+                </ul>
+            </div>
+            <div class="d3" style="border-top:1px solid #eee;">
+                <div class="fl">
+                    <span class="fs Pink">
+                        共找到{$pagecount}条记录
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--搜索结果列表-->
+<div class="w1200 ">
+    <div class=" clearfix bgfff
+
+         mt20 bigimg_list
+
+         ">
+
+            <notempty name="list">
+                <div class="newslist">
+                    <ul id="tab_head">
+                        <volist name="list" id="vo">
+
+                            <li>
+                                <div class="border5">
+                                    <span class="release weixinICON wxIcon_25">
+                                    </span>
+
+
+
+                                    <a href="{:U('Weixin/show',array('id'=>$vo['id']))}" title="{$vo.title}" class="">
+
+                                        <img src="<empty name='vo.logo'><empty name='vo.weblogo'>../Public/images/nopic.gif<else />{$vo.weblogo}</empty><else />__ROOT__/Uploads{$vo.logo}</empty>" alt="{$vo.pubaccount}">
+                                    </a>
+                                    <p class="goods_name ellips">
+                                        <a href="{:U('Weixin/show',array('id'=>$vo['id']))}" title="{$vo.title}">
+                                            {$vo.title}
+                                        </a>
+                                    </p>
+                                    <p class="wxNum ellips">
+                                        <span class="pink">
+                                            1
+                                        </span>
+                                        <span class="caaa">
+                                            小时前更新
+                                        </span>
+                                        <span class="Pink ml10">
+                                            <if condition="($vo.city neq '-1') and ($vo.city neq '')">
+                                                <a href="/index.php?m=weixin&a=index&catid=87&city={$vo.city}" class="btnCity">{$vo.city|getAreasName|msubstr=0,4}</a>
+                                                <else />
+                                                <a href="/index.php?m=weixin&a=index&catid=87&city=-1" class="btnCity">{$vo.city|getAreasName=1,###|msubstr=0,4}</a>
+
+                                            </if>
+                                        </span>
+                                    </p>
+                                    <p>
+                                        <span class="weixinqunICON views">
+                                        </span>
+                                        <span style="padding-left:10px">{$vo.hits}</span>
+                                        <span class="weixinqunICON zhuanfa">
+                                        </span>
+                                        <span style="padding-left:10px">{$vo.xh}</span>次
+                                    </p>
+                                </div>
+                            </li>
+                        </volist>
+                    </ul>
+
+                </div>
+            </notempty>
+
+
+    </div>
+
+
+    <div class="pageNo vm center">
+        {$page}
+    </div>
+
+</div>
+<div class="container clearfix zoom tuijian">
+    <div class="w1200 mt10 cont">
+            
+         
+    </div>
+</div>
+<include file="Public:footer"/>

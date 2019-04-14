@@ -1,0 +1,39 @@
+<include file="Public:header"/>
+
+<div class="main">
+    
+    <div class="position">
+        <span>当前位置：</span><a href="__APP__">首页</a> &gt; 
+        <volist name="position" id="vo">
+            <a href="{:U('Promotion/index',array('id'=>$vo['id']))}">{$vo.catname}</a> &gt; 
+        </volist>
+    </div>
+    
+    <div class="newsbox">
+        <div class="newsl">
+            <div class="view" style="padding-bottom: 20px;">
+                <div class="title">
+                    <h1>{$data.title}</h1>
+                    <div class="info"><span>发布时间：{$data.create_time|toDate='Y-m-d H:i'}</span><span>浏览{$data.hits}次</span></div>
+                </div>
+                <div class="clear"></div>
+                <div class="content">   
+                    <notempty name="data.thumb"><img src="__ROOT__/Uploads{$data.thumb}" /><br></notempty>
+                    {$data.content}
+                </div>
+                <div class="prev_next_nav">
+                    <span class="prev">上一篇：<empty name="prevdata">第一篇<else /><a href="{:U('Promotion/show',array('id'=>$prevdata['id']))}" target="_blank">{$prevdata['title']|msubstr=0,20}</a></empty></span>
+                    <span class="next">下一篇：<empty name="nextdata">最后一篇<else /><a href="{:U('Promotion/show',array('id'=>$nextdata['id']))}" target="_blank">{$nextdata['title']|msubstr=0,20}</a></empty></span>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="newsr">
+        <include file="Public:ggw" />
+        <include file="Public:gzphb" />
+        <include file="Public:zxsl" />
+        </div>
+    </div>
+</div>
+
+<include file="Public:footer"/>

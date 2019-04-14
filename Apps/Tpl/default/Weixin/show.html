@@ -1,0 +1,189 @@
+<include file="Public:header"/>
+<div class="main">
+    <include file='Public:login' />
+    <div class="position">
+        
+        <span>当前位置：</span>
+        <a href="__APP__">首页</a> &gt; 
+        <volist name="position" id="vo">
+            <a href="{:U('Weixin/index',array('id'=>$vo['id']))}">{$vo.catname}</a> &gt; 
+        </volist>
+        
+    </div>
+    <div class="newsbox">
+        
+        
+    </div>
+    <div class="newsbox">
+        
+        <div class="newsl">
+            <div class="newsinfo">
+                <div class="viewl">
+                    <img src="<empty name='data.logo'><empty name='data.weblogo'>../Public/images/nopic.gif<else />{$data.weblogo}</empty><else />__ROOT__/Uploads{$data.logo}</empty>" />
+                </div>
+                <div class="viewm">
+                    <h1>{$data.pubaccount}<span>所属分类：<volist name="position" id="vo"><a href="{:U('Weixin/index',array('id'=>$vo['id']))}">{$vo.catname}</a>&nbsp;</volist></span></h1>
+                    <div>
+                        <ul  style="float: left;overflow: hidden;">
+                            <li><span id="pubaccount">公众帐号：</span>{$data.pubaccount}&nbsp;<a target="_self" href="javascript:void(0)" onclick="window.clipboardData.setData('Text', '{$data.pubaccount}'); alert('复制成功');" onfocus="body.focus();"><font id="copytext" color="#FD9400">[复制公众帐号]</font></a></li>
+                            <li><span>微信帐号：</span>{$data.wxaccount}</li>
+                            <li><span>关注度：</span>{$data.hits}人关注</li>
+                            <li><span>评价度：</span><img src="../Public/images/xx{$data.xingji}.jpg" /></li>
+                            <li><span>网站地址：</span><notempty name="data.website"><a href='{$data.website}' target='_blank' rel="nofollow">{$data.title}官方网站</a></notempty></li>
+                            <li><span>新浪微博：</span><notempty name="data.sinaweibo"><a href='{$data.sinaweibo}' target='_blank' rel="nofollow">{$data.title}新浪微博</a></notempty></li>
+                            <li><span>腾讯微博：</span><notempty name="data.tencentweibo"><a href='{$data.tencentweibo}' target='_blank' rel="nofollow">{$data.title}腾讯微博</a></notempty></li>
+                            <li><span>淘宝店铺地址：</span><notempty name="data.tbshopurl"><a href='{$data.tbshopurl}' target='_blank' rel="nofollow">{$data.title}淘宝店铺地址</a></notempty></li>
+                            <li><span>拍拍店铺地址：</span><notempty name="data.ppshopurl"><a href='{$data.ppshopurl}' target='_blank' rel="nofollow">{$data.title}拍拍店铺地址</a></notempty></li>
+                            <li><span>所在地区：</span>中国&nbsp;{$data.province|getAreasName}&nbsp;{$data.city|getAreasName}</li>
+                            <li><span>收录时间：</span>{$data.create_time|toDate='Y-m-d'}</li>
+                            <li><span>标签：</span>{$data.tag|changeA=###,$position[0]['id']}</li>
+                            
+                        </ul>
+                        <div style="float: left;overflow: hidden;padding-top:10px;text-align: center;">
+                            <img src="<empty name='data.qrcode'><empty name='data.webqrcode'>../Public/images/nopic.gif<else />{$data.webqrcode}</empty><else />__ROOT__/Uploads{$data.qrcode}</empty>" title="使用微信安装并打开二维码扫描工具，将手机摄像头对准网页上的二维码图片扫描即可。" width="230" height="230" />
+                            <p style="margin-top: 10px;color: #999999;text-align: center;">二维码扫描订阅，精品信息推送分享</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="view" style="overflow: hidden;clear: both;">
+                <div class="info" style="text-align: right;width: 320px;">
+                    <span class="xhbg"><a href="javascript:return false;" class='xh' onmouseover="this.style.backgroundPosition='0 0'" onmouseout="this.style.backgroundPosition='-189px 0'" onclick="xh(this,{$data['id']},'xh')">&nbsp;&nbsp;<strong>{$data.xh}</strong></a></span>
+                </div>
+                <div class="info" style="text-align: left;width: 320px;">
+                    <span class="xhbg nxhbg"><a href="javascript:return false;" class='xh' onmouseover="this.style.backgroundPosition='-567px 0'" onmouseout="this.style.backgroundPosition='-378px 0'" onclick="xh(this,{$data['id']},'nxh')">&nbsp;&nbsp;<strong>{$data.nxh}</strong></a></span>
+                </div>
+            </div>
+            <div class="view">
+                <h3>促销活动</h3>
+                <div class="cxcontent">
+                    <ul>
+                        <volist name='articlelist' id='vo'>
+                            <li><a href="{:U('Promotion/show',array('id'=>$vo['id']))}" target="_blank">{$vo.title}</a></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="view">
+                <h3>账号介绍</h3>
+                <div class="content">
+                    {$data.content}
+                </div>
+            </div>
+            <div class="view">
+                <h3>相关帐号</h3>
+                <div class="content">
+                    <div class="newsllist">
+                        <ul class="popo">
+                            <yufu:weixin catid="'.$data['catid'].'" order="rand()" num="14">
+                            <li>
+                                <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}" title="{$weixin.pubaccount}" target='_blank'>
+                                 <img src="<empty name='weixin.logo'><empty name='weixin.weblogo'>../Public/images/nopic.gif<else />{$weixin.weblogo}</empty><else />__ROOT__/Uploads{$weixin.logo}</empty>" width="80" height="80">
+                                 <div class="title">{$weixin.pubaccount|msubstr=0,5}</div>
+                                 <div class="xingji"><img src="../Public/images/xx{$weixin.xingji}.jpg" /></div>
+                                 <div class="guanzhu">{$weixin.hits}人关注</div>
+                                 </a>
+                                <div class="pop">
+                                    <div class="panel">
+                                       <div class="ewm"><img src="<empty name='weixin.qrcode'><empty name='weixin.webqrcode'>../Public/images/nopic.gif<else />{$weixin.webqrcode}</empty><else />__ROOT__/Uploads{$weixin.qrcode}</empty>"></div>
+                                       <div class="title">{$weixin.pubaccount|msubstr=0,6}</div>
+                                       <div class="star"><img src="../Public/images/xx{$weixin.xingji}.jpg" /></div>
+                                       <div class="rate">{$weixin.hits}人关注</div>
+                                       <div class="des" style="font-size: 12px;"><p>{$weixin.content|strip_tags|msubstr=0,20}</p></div>
+                                    </div>
+                                    <div class="arrow">
+                                       <div class="arrow1"></div>
+                                       <div class="arrow2"></div>
+                                   </div>
+                               </div>
+                             </li>
+                            </yufu:weixin>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <if condition="$data['iscomment'] eq 1">
+            <eq name="iscomment" value="1">
+            <eq name="commenttype" value="2">
+                <div class="comment">
+                    <yufu:other settag="duoshuo" />
+                </div>
+            </eq>
+            <eq name="commenttype" value="1">
+                <?php $url=U('Weixin/addcomment');?>
+                <include file="Public:comment" />
+            </eq>
+            </eq>
+            </if>
+        </div>
+        <div class="newsr">
+        <include file="Public:ggw1"/>       
+        <include file="Public:gzphb"/>
+        <include file="Public:zxsl"/>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $('#pubaccount').click(function(){
+            alert('a');
+            copyToClipBoard("aaaaaaaaaaaaaaa");
+        })
+        
+    })
+    function xh(cur,id,type){
+        $.get("{:U('Weixin/xh')}",{id:id,type:type},function(data){
+            if(data.status==1){
+                $(cur).children('strong').html(data.info);
+            }else{
+                
+                alert(data.info);
+            }
+            
+       });
+    }
+</script>
+<script type="text/javascript" language="javascript">
+        //复制到剪切板js代码
+        function copyToClipBoard(s) {
+            
+            //alert(s);
+            if (window.clipboardData) {
+                window.clipboardData.setData("Text", s);
+                alert("已经复制到剪切板！"+ "\n" + s);
+            } else if (navigator.userAgent.indexOf("Opera") != -1) {
+                window.location = s;
+            } else if (window.netscape) {
+
+                try {
+                    netscape.security.PrivilegeManager.enablePrivilege("UniversalXPConnect");
+                } catch (e) {
+                    alert("被浏览器拒绝！\n请在浏览器地址栏输入'about:config'并回车\n然后将'signed.applets.codebase_principal_support'设置为'true'");
+                }
+                var clip = Components.classes['@mozilla.org/widget/clipboard;1'].createInstance(Components.interfaces.nsIClipboard);
+                if (!clip)
+                    return;
+                var trans = Components.classes['@mozilla.org/widget/transferable;1'].createInstance(Components.interfaces.nsITransferable);
+                if (!trans)
+                    return;
+                trans.addDataFlavor('text/unicode');
+                var str = new Object();
+                var len = new Object();
+                var str = Components.classes["@mozilla.org/supports-string;1"].createInstance(Components.interfaces.nsISupportsString);
+                var copytext = s;
+                str.data = copytext;
+                trans.setTransferData("text/unicode", str, copytext.length * 2);
+                var clipid = Components.interfaces.nsIClipboard;
+                if (!clip)
+                    return false;
+                clip.setData(trans, null, clipid.kGlobalClipboard);
+                alert("已经复制到剪切板！" + "\n" + s)
+            }else{
+
+            }
+        }
+    </script>
+<include file="Public:footer"/>

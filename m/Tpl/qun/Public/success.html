@@ -1,0 +1,14 @@
+<include file="Public:header"/>
+    <div class="h5ui-msg h5ui-msg_success" id="msgpage-success" style="">
+        <div class="h5ui-msg_content">
+            <i class="h5ui-msg_icon"></i>
+            <h4>{$message}</h4>
+            <present name="jumpUrl" >
+            <p>系统将在<span style="color:#424242;font-weight:bold">{$waitSecond}</span>秒后自动跳转，如果不想等待，直接点击<a href="{$jumpUrl}">这里</a></p>
+            <script language="javascript">
+                setTimeout("location.href='{$jumpUrl}';",{$waitSecond}*1000);
+            </script>
+            </present>
+        </div>
+    </div>
+<include file="Public:footer"/>

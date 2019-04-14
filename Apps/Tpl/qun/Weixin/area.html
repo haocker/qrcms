@@ -1,0 +1,77 @@
+<include file="Public:header"/>
+<div class="container" style=" background:#fff; border-bottom:1px solid #ccc;">
+    <div class="w1200">
+        <div class="city_nav_inp title">
+            <span class="title_dqwx">
+                {$data.catname}
+            </span>
+        </div>
+    </div>
+</div>
+
+<div class="w1200 clearfix">
+    <div class="city_nav">
+        <div class="clearfix city_nav_bod">
+           
+
+            <div class="city_Cate_fr" style="width:1200px">
+                <ul class="city_head">
+                    <a href="{:U('Member/tjlist')}" class="user-center">
+                        <li class="add_head" title="我要上推荐">
+                            我要上推荐
+                        </li>
+                    </a>
+                    <yufu:tuijian recommendid="2" order="rand()" num="9">
+                        <li class="ellips" style="text-align:center">
+                            <a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}">
+                                <img src="<empty name='tuijian.logo'><empty name='tuijian.weblogo'>../Public/images/nopic.gif<else />{$tuijian.weblogo}</empty><else />__ROOT__/Uploads{$tuijian.logo}</empty>" alt="{$tuijian.title|msubstr=0,6}">
+                                {$tuijian.title|msubstr=0,6}
+                            </a>
+                        </li>
+                    </yufu:tuijian>
+                    
+                </ul>
+                <div class="col">
+                    <div class="letter bor">
+                        <p class="c888 fl">
+                            热门城市
+                        </p>
+                        <volist name="recommendlist" id="vo">
+                            <if condition="$vo.area_type eq 1">
+                                <a href="{:U('Weixin/index',array('catid'=>$data['id'],'province'=>$vo['id']))}" title="{$vo['area_name']}" target="_blank">{$vo['area_name']}</a>
+                                <else />
+                                <a href="{:U('Weixin/index',array('catid'=>$data['id'],'city'=>$vo['id']))}" title="{$vo['area_name']}" target="_blank">{$vo['area_name']}</a>
+                            </if>
+                        </volist>
+                    </div>
+                </div>
+                <div class="col">
+                    <dl>
+                        <volist name="arealist" id="vo">
+                            <div class="letter_items">
+                                <dt id="a">
+                                    <a href="{:U('Weixin/index',array('catid'=>$data['id'],'province'=>$vo['id']))}" title="{$vo['area_name']}" target="_blank">{$vo['area_name']}</a>
+                                </dt>
+                                <div class="letter_item_con">
+                                    <notempty name="vo.subarealist">
+                                        <volist name="vo.subarealist" id="subvo">
+                                            
+                                            <dd>
+                                                <a href="{:U('Weixin/index',array('catid'=>$data['id'],'city'=>$subvo['id']))}">
+                                                    <span>{$subvo['area_name']}</span>
+                                                </a>
+                                            </dd>
+                                        </volist>
+                                    </notempty>
+                                </div>
+                            </div>
+                        </volist>
+
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="Public:footer"/>

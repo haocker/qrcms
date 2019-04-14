@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$title}-{$sitename}</title>
+<meta name="keywords" content="{$keywords}" />
+<meta name="description" content="{$description}" />
+<link href="../Public/css/style.css" rel="stylesheet" type="text/css" />
+<link href="../Public/css/validator.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Public/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../Public/js/jquery.form.js"></script>
+<script type="text/javascript" src="../Public/js/formValidator-4.0.1.min.js"></script>
+<script type="text/javascript" src="../Public/js/formValidatorRegex.js"></script>
+<script type="text/javascript">
+    //指定当前组模块URL地址 
+    var URL = '__URL__';
+    var APP	 = '__APP__';
+    var PUBLIC='__PUBLIC__';
+    var Public = '../Public/';
+
+    $(function(){
+        // 导航特效
+        var _obj = $(".nav");
+        if(_obj && _obj.length > 0){
+                $("ul > li:has(ul)",_obj).hover(function(){
+                        $(this).children("ul").stop(true,true).slideDown(400);
+                },function(){
+                        $(this).children("ul").stop(true,true).slideUp("fast");
+                });
+        }
+
+        // 跑马灯 marquee
+        $("#marquee").effectBlockSlide({speed:3000});
+        
+    });
+    
+
+    // 幻灯片特效插件
+    (function($){
+	$.fn.effectBlockSlide = function(options){
+	  var defaults = {
+		  speed: "3000"
+	  };
+
+	  var newOptions = $.extend(defaults,options);
+	  return this.each(function(){
+
+		  var obj = $(this);
+		  var length = obj.children().size();
+		  obj.children().not(":first").hide();
+		  
+		  var intervalId;
+		  
+		  function slideInterval(){
+
+                            intervalId = setInterval(function(){
+
+                                      obj.children().eq(0).slideUp();
+                                          obj.children().eq(1).slideDown("normal",function(){
+                                              obj.append(obj.children().eq(0).detach());
+
+                                          }); 
+
+                           },newOptions.speed);  
+		  }
+		  
+		  if(length > 1){slideInterval()};
+                    obj.mouseover(function(){
+                            window.clearInterval(intervalId);
+                    });
+                    obj.mouseout(function(){
+                            if(length > 1){slideInterval()};
+                    });   
+	  });
+	};
+})(jQuery);
+
+</script>
+</head>
+<style type="text/css">
+#nav_{$position[0]['id']}{background:#1AA206;}
+</style>
+<body>
+<yufu:other settag="bdshare" />
+<!--定义变量-->
+<assign name="nopicpath" value="../Public/theme/nopic.gif" />
+
+<div class="header">
+        <a href="__APP__" class="logo">
+           <img src="__ROOT__/Uploads<yufu:set settag="logo" />" alt="微信公众账号导航" width="320" height="54"/>
+        </a>
+        <div class="member">
+            <if condition="$Think.session.account != null">
+                欢迎您！<a href="{:U('Member/index')}" title="{$Think.session.account}&nbsp;个人中心"><b>{$Think.session.account}</b></a>&nbsp;&nbsp;<a href="{:U('Member/logout')}" target='_top'>退出</a>
+                &nbsp;<span style="color:#18A206;">|</span>&nbsp;<a href="{:U('Member/add')}">提交微信公号</a>
+                <else />
+                <a href="{:U('Member/register')}">注册</a>&nbsp;<span style="color:#18A206;">|</span>&nbsp;<a href="{:U('Member/login')}">登录</a>
+                <eq name="isaddaccount" value="1">
+                &nbsp;<span style="color:#18A206;">|</span>&nbsp;<a href="{:U('Weixin/add',array('id'=>91))}">提交微信公号</a>
+                <else />
+                &nbsp;<span style="color:#18A206;">|</span>&nbsp;<a href="{:U('Member/login')}">提交微信公号</a>
+                </eq>
+            </if>
+            
+        </div>
+    
+</div>
+<div class="nav_bg">
+    <div class="nav">
+        <ul>
+            <li><a href="__APP__" id="nav_0">首页</a></li>
+            <volist name="nav_list" id="vo">
+            <li>
+                <empty name="vo.sub_nav">
+                    <a href="{$vo.url}" id="nav_{$vo.id}">{$vo.catname}</a>
+                    <else />
+                    <a href="{$vo.url}" <eq name="position[0]['id']" value="$vo.id">class="parent current"<else />class="parent"</eq>>{$vo.catname}</a>
+                    <ul class="sub_nav_ul">
+                        <volist name="vo.sub_nav" id="sub">
+                            <li <eq name="key" value='0'>class="first"</eq>><a href="{$sub.url}"  class="catalog">{$sub.catname}</a>
+                                <volist name="sub.sub_sub_nav" id="sub_sub">
+                                  <a href="{$sub_sub.url}">{$sub_sub.catname}</a>
+                                </volist>                   
+                            </li>
+                        </volist>
+                    </ul>
+                </empty>
+            </li>
+            </volist>
+             
+        </ul>
+        <div class="search">
+            <form action="{:U('Weixin/search',array('id'=>126))}" method="post">
+                <input type="text" name='search' id='search' title="请输入关键字(公众账号/微信账号)" value="{$text|urldecode}">
+                <input type="submit" class="button" value='' id="button" >
+            </form>
+        </div>
+    </div>
+</div>
+<div class="subinfo">
+    <div class="announce">公告：</div>
+        <div class="marquee">
+         <ul id="marquee">
+            <yufu:announce field="id,title" order="create_time desc" num="5">
+                <li><a href="{:U('Announce/show',array('id'=>$announce['id']))}" target=_blank>{$announce.title|msubstr=0,18}</a></li>
+            </yufu:announce>
+         </ul>
+        </div>
+        <div class="qq">
+            <yufu:other settag="qqqun" />
+        </div>
+        <div class="search">
+             热门搜索：<yufu:search field="search" order="hits desc" num="3"><?php $keyword=urlencode($search['search']);?><a href="{:U('Weixin/search',array('keyword'=>$keyword,'id'=>126))}" target="_blank">{$search.search}</a>&nbsp;</yufu:search>
+       </div>
+
+</div>

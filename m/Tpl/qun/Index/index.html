@@ -1,0 +1,43 @@
+<include file="Public:header" />
+<include file="top" />
+
+    <div class="content-index">
+        <div class="h5ui-group">
+            <yufu:tuijian catid="140" >
+                <a class="h5ui-list" href="{:U('Weixin/show',array('id'=>$tuijian['id']))}">
+                    <div class="h5ui-list_hd"><img src="<empty name='tuijian.logo'><empty name='tuijian.weblogo'>../Public/images/nopic.gif<else />{$tuijian.weblogo}</empty><else />__ROOT__/Uploads{$tuijian.logo}</empty>" width="100%" height="100%" align="h5ui"></div>
+                    <div class="h5ui-list_bd">{$tuijian.title}
+                        <div class="h5ui-list_bd fb">{$tuijian.content}</div>
+                    </div>
+
+                    <div class="h5ui-list_ft">
+                        <span>加群</span>
+                    </div>
+                    <span class="topicon"></span>
+                </a>
+            </yufu:tuijian>
+            <!--<h5 class="h5ui-group_title">-->
+                <!--带图标列表项-->
+            <!--</h5>-->
+            <notempty name="list">
+                <volist name="list" id="item">
+                    <a class="h5ui-list" href="{:U('Weixin/show',array('id'=>$item['id']))}">
+                        <div class="h5ui-list_hd"><img src="<empty name='item.logo'><empty name='item.weblogo'>../Public/images/nopic.gif<else />{$item.weblogo}</empty><else />__ROOT__/Uploads{$item.logo}</empty>" width="100%" height="100%" align="h5ui"></div>
+                        <div class="h5ui-list_bd">{$item.title}
+                            <div class="h5ui-list_bd fb">{$item.content}</div>
+                        </div>
+
+                        <div class="h5ui-list_ft">
+                            <span>加群</span>
+                        </div>
+                    </a>
+                </volist>
+            </notempty>
+
+
+
+        </div>
+    </div>
+
+<include file="bottom" />
+<include file="Public:footer" />

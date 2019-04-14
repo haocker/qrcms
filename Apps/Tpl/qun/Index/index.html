@@ -1,0 +1,228 @@
+<include file="Public:header" />
+
+<!--轮播图-->
+<div class="container clearfix zoom tuijian">
+    <div class="w1200">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <yufu:slide field="id,title,url,img" order="listorder desc" num="5">
+                    <div class="swiper-slide">
+                        <a href="{$slide.url}" target="_blank"><img src="Uploads{$slide.img}" alt="{$slide.title}" width="1200" height="300" /></a>
+                    </div>
+                </yufu:slide>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+</div>
+
+<!--热门推荐-->
+<div class="container clearfix zoom tuijian">
+    <div class="w1200 mt10 cont">
+        <div class="title">
+            <div class="subs">
+                <h2 class="active">
+                    <span class="weixinqunICON wxICON_6">
+                    </span>
+                    热门推荐
+                </h2>
+                <div class="Rel_btn Rel_gjqun">
+                    <span class="weixinqunICON wxICON_7">
+                    </span>
+                    <a href="{:U('Member/tjlist')}" class="user-center">
+                        我要上推荐
+                    </a>
+                </div>
+            </div>
+        </div>
+        <ul>
+            <volist name="tjlist" id="tuijian" mod="14">
+                <li>
+                    <a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}">
+                        <img src="<empty name='tuijian.logo'><empty name='tuijian.weblogo'>../Public/images/nopic.gif<else />{$tuijian.weblogo}</empty><else />__ROOT__/Uploads{$tuijian.logo}</empty>" alt="{$tuijian.pubaccount|msubstr=0,6}">
+                    </a>
+                    <span class="ellips">
+                        <a href="{:U('Weixin/show',array('id'=>$tuijian['id']))}">
+                            <span class="four-ellisps" style="width: 85px;color: #ccc">{$tuijian.title|msubstr=0,6}</span>
+                        </a>
+                    </span>
+                </li>
+            </volist>
+        </ul>
+    </div>
+</div>
+
+
+
+<!--群展示-->
+
+<div class=" container clearfix zoom pt20 pb20" style="background:#fff;">
+    <div class="w1200 clearfix">
+        <div class="cateNav">
+            <div class="title mb10">
+                <div id="tab1" class="subs">
+                    <h2 class="active">
+                        <span class="weixinqunICON wxICON_6">
+                        </span>
+                        微信群
+                    </h2>
+                    <h2>
+                        <span class="weixinqunICON wxICON_6" style="display: none;">
+                        </span>
+                        公众号
+                    </h2>
+                    <h2>
+                        <span class="weixinqunICON wxICON_6" style="display: none;">
+                        </span>
+                        个人微信
+                    </h2>
+                </div>
+            </div>
+            <ul class="wxqun clearfix">
+
+                <?php
+                $catlist = D('Category')->where('status=1')->select();
+                $idlist = '140,'.getChildId($catlist,140);
+                $idlist= substr($idlist, 0, strlen($idlist)-1);
+                ?>
+                <yufu:weixin catid="'.$idlist.'" recommendid="2" num="30">
+                    <li>
+                        <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}">
+                            <img src="<empty name='weixin.logo'><empty name='weixin.weblogo'>../Public/images/nopic.gif<else />{weixin.weblogo}</empty><else />__ROOT__/Uploads{$weixin.logo}</empty>" alt="{$weixin.title|msubstr=0,6}" />
+                        </a>
+                        <span class="ellips">
+                            <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}">
+                                {$weixin.title|msubstr=0,6}
+                            </a>
+                        </span>
+                    </li>
+                </yufu:weixin>
+            </ul>
+            <ul class="wxqun clearfix" style="display: none;">
+
+                <?php
+                $catlist = D('Category')->where('status=1')->select();
+                $idlist = '53,'.getChildId($catlist,53);
+                $idlist= substr($idlist, 0, strlen($idlist)-1);
+                ?>
+                <yufu:weixin catid="'.$idlist.'" recommendid="2" num="30">
+                    <li>
+                        <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}">
+                            <img src="<empty name='weixin.logo'><empty name='weixin.weblogo'>../Public/images/nopic.gif<else />{weixin.weblogo}</empty><else />__ROOT__/Uploads{$weixin.logo}</empty>" alt="{$weixin.title|msubstr=0,6}" />
+                        </a>
+                        <span class="ellips">
+                            <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}">
+                                {$weixin.title|msubstr=0,6}
+                            </a>
+                        </span>
+                    </li>
+                </yufu:weixin>
+            </ul>
+            <ul class="wxqun clearfix" style="display: none;">
+
+                <?php
+                $catlist = D('Category')->where('status=1')->select();
+                $idlist = '139,'.getChildId($catlist,139);
+                $idlist= substr($idlist, 0, strlen($idlist)-1);
+                ?>
+                <yufu:weixin catid="'.$idlist.'" recommendid="2" num="30">
+                    <li>
+                        <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}">
+                            <img src="<empty name='weixin.logo'><empty name='weixin.weblogo'>../Public/images/nopic.gif<else />{weixin.weblogo}</empty><else />__ROOT__/Uploads{$weixin.logo}</empty>" alt="{$weixin.title|msubstr=0,6}" />
+                        </a>
+                        <span class="ellips">
+                            <a href="{:U('Weixin/show',array('id'=>$weixin['id']))}">
+                                {$weixin.title|msubstr=0,6}
+                            </a>
+                        </span>
+                    </li>
+                </yufu:weixin>
+            </ul>
+        </div>
+        <div class="side">
+            <div class="hotWord index_bg" style="padding-left: 0;padding-right: 0;">
+                <div class="title_r">
+                    <div class="subs">
+                        <h2 class="active" style="padding-left: 15px">
+                            热词搜索
+                        </h2>
+                    </div>
+                </div>
+                <yufu:other settag="hot" />
+            </div>
+            <div class="title_r mt20">
+                <div class="subs">
+                    <h2>
+                        精选文章
+                    </h2>
+                </div>
+            </div>
+
+            <ul class="cityph clearfix">
+                <yufu:article order="id desc" num="12">
+                    <li>
+                        {$article.create_time|toDate='m-d'}&nbsp;&nbsp;
+                        <a href="{:U('Article/show',array('id'=>$article['id']))}" target="_blank" title="{$article.title}">{$article.title|msubstr=0,20}</a>
+                    </li>
+                </yufu:article>
+            </ul>
+            <!--<div class=" mt20 ad">
+                <a href="/ad_group"><img src="picture/ad2.png" alt="微信红包群"></a>
+            </div>-->
+        </div>
+    </div>
+    <div style="margin:15px auto 5px;width:1100px;">
+
+    </div>
+</div>
+
+<div class="container clearfix zoom mt20 pb20">
+    <div class="w1200">
+        <div class="firend">
+            <h4 class="h4">友情链接( <yufu:other settag="qq" /> )</h4>
+            <ul>
+                <volist name="list" id="vo">
+                    <if condition="$vo['type'] eq 0 ">
+                        <if condition="$vo['linktype'] eq 0">
+                            <li><a href="{$vo.url}" target="_blank">{$vo.name}</a></li>
+                        </if>
+                    </if>
+                </volist>
+            </ul>
+        </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+        <script>
+            $(function () {
+                $("img.lazy").lazyload();
+            });
+        </script>
+        <script>
+            var mySwiper = new Swiper('.swiper-container', {
+                direction: 'horizontal',
+                autoplay: { delay: 5000 },
+                loop: true,
+                // 如果需要分页器
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+
+                // 如果需要前进后退按钮
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                }
+
+            })
+        </script>
+        <include file="Public:footer" />

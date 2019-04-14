@@ -1,0 +1,50 @@
+<include file="Public:header"/>
+<include file="top"/>
+<div class="content-member">
+    <form action="{:U('Member/checkRegister')}" method="post">
+    <div class="h5ui-group">
+
+        <h5 class="h5ui-group_title">
+            加群网账号登录
+        </h5>
+
+        <div class="h5ui-form">
+            <label  class="h5ui-form-label">用户名</label>
+            <input type="text"  name="account" class="h5ui-form-input" placeholder="请输入用户名">
+        </div>
+        <div class="h5ui-form">
+            <label  class="h5ui-form-label">昵称</label>
+            <input type="text"  name="nickname" class="h5ui-form-input" placeholder="请输入昵称">
+        </div>
+        <div class="h5ui-form">
+            <label  class="h5ui-form-label">密码</label>
+            <input type="password"  name="password" class="h5ui-form-input" placeholder="请输入密码">
+        </div>
+        <div class="h5ui-form">
+            <label  class="h5ui-form-label">确认密码</label>
+            <input type="password"  name="repassword" class="h5ui-form-input" placeholder="请确认密码">
+        </div>
+        <div class="h5ui-form">
+            <label  class="h5ui-form-label">验证码</label>
+            <input type="text"  name="verify" class="h5ui-form-input" placeholder="请输入验证码">
+            <span class="h5ui-form-input_tip">
+                <img id="verifyImg" src="{:U('Member/verify')}" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer;height:30px;" align="absmiddle">
+            </span>
+        </div>
+
+    </div>
+    <p style="    padding: 15px;">
+        <input type="hidden" name="role_id" value="15" >
+        <button class="h5ui-btn" style="background: #ff3265;color: #ffffff;">注册</button>
+
+    </p>
+    </form>
+    <p style="color: #ff3265;text-align: center"><a href="{:U('Member/login')}" style="color: #ff3265;">已有账号？去登陆</a></p>
+</div>
+<script>
+    function fleshVerify(){
+        //重载验证码
+        $('#verifyImg').attr('src',"{:U('Member/verify',array('t'=>time()))}");
+    }
+</script>
+<include file="Public:bottom" />

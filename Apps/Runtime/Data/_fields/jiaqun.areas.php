@@ -1,0 +1,1 @@
+<?php	return array ( 0 => 'id', 1 => 'parent_id', 2 => 'area_name', 3 => 'area_type', 4 => 'listorder', 5 => 'recommend', '_autoinc' => true, '_pk' => 'id', '_type' => array ( 'id' => 'smallint(6) unsigned', 'parent_id' => 'smallint(6) unsigned', 'area_name' => 'varchar(120)', 'area_type' => 'tinyint(1)', 'listorder' => 'int(11)', 'recommend' => 'tinyint(4)', ), );?>

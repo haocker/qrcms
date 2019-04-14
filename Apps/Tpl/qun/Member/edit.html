@@ -1,0 +1,369 @@
+<include file="Public:header" />
+<link href="../Public/css/center.css" rel="stylesheet" />
+<link href="../Public/css/table_form.css" rel="stylesheet" />
+<script type="text/javascript" src="../Public/js/select-option-disabled-emulation.js"></script>
+<style>
+    .comTab td .upload {
+        width: 64px;
+        height: 64px;
+    }
+</style>
+<div class="w1200 clearfix pt20">
+    <include file="Member:left" />
+    <div class="centerContent ml10">
+
+        <div class="centerDisArea_title mt20">
+
+            <div class="title">
+                <a href="javascript:vodataid(0);" class="tab-link2 active">
+
+                    修改二维码
+
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="centerDisArea">
+
+
+
+            <form id="form" method="post" action="{:U('Member/edit')}" enctype="multipart/form-data">
+
+                <input type="hidden" name="typeid" value="{$vodata.typeid}" style="margin-top: 5px;" />
+
+
+
+
+                <table class="comTab mt20  tab2 " border="0" style="display: table;">
+
+                    <tbody>
+
+
+
+                        <tr>
+
+                            <td class="line">
+
+                                所属类别：
+
+                            </td>
+
+                            <td>
+
+                                <select class="sl" name="catid" id="catid">
+
+                                    <option>
+
+                                        请选择
+
+                                    </option>
+                                    <volist name="categorylist" id="catvodata">
+                                        <if condition="$categorylist[$key]['level'] egt $categorylist[$key+1]['level']">
+                                            <option value="{$catvodata['id']}" <eq name="vodata.catid" value="$catvodata['id']">selected="selected"</eq>>
+                                                <else />
+                                            <option value="{$catvodata['id']}" disabled="disabled">
+                                        </if>
+
+                                        <for start="1" end="$catvodata['level']">
+                                            &nbsp;&nbsp;
+                                        </for>
+                                        <if condition="$catvodata['level'] gt 1">
+                                            ├&nbsp;
+                                        </if>
+                                        {$catvodata['catname']}
+                                        </option>
+                                    </volist>
+                                </select>
+                                <div id="type_idTip" class="onShow">必填</div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td class="line">
+
+                                地区：
+
+                            </td>
+
+                            <td>
+
+
+                                <select class="sl" name="province" id="province">
+                                    <option  value="{$vodata.province}" selected="">请选择</option>
+
+                                    <volist name="province" id="one">
+                                        <option value="{$one.id}">{$one.area_name}</option>
+                                    </volist>
+
+                                </select>
+                                <select class="sl" name="city" id="city">
+                                    <option  value="{$vodata.city}" >
+
+                                        请选择
+
+                                    </option>
+                                </select>
+
+                                <div id="province_codeTip" class="onShow">选择地区</div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td class="line">
+
+                                名称：
+
+                            </td>
+
+                            <td>
+
+                                <input id="pubaccount" name="pubaccount" type="text" class="ipt" value="{$vodata.pubaccount}">
+                                <div id="nameTip" class="onShow">必填</div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td class="line">
+
+                                微信号：
+
+                            </td>
+
+                            <td>
+
+                                <input id="wxaccount" name="wxaccount" type="text" class="ipt" value="{$vodata.wxaccount}" placeholder="">
+
+                                <div id="open_idTip" class="onShow">必填</div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td class="line">
+
+                                封面：
+
+                            </td>
+
+                            <td>
+
+                                
+
+                                <notempty name="vodata.logo">
+                                        <input type="hidden" name="logo" value="{$vodata.logo}">
+
+                                    <p>
+                                        <label for="logo" class="image-upload btn btn_green">上传二维码</label>
+                                    </p>
+                                    <img src="__ROOT__/Uploads/{$vodata.logo}" alt="" id="logoview" width="80" height="80">
+                                    <input class="file" name="logo" id="logo" style="position:absolute;top:-200px;left:0;" type="file">
+                                    <div id="logoTip" class="onShow">请上传图片</div>
+                                </notempty>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td class="line">
+                                二维码：
+                            </td>
+                            <td>
+                                
+                                
+                                <notempty name="vodata.qrcode">
+
+                                        <input type="hidden" name="qrcode" value="{$vodata.qrcode}">
+                                    <p>
+                                        <label for="qrcode" class="image-upload btn btn_green">上传二维码</label>
+                                    </p>
+                                    <img src="__ROOT__/Uploads/{$vodata.qrcode}" alt="" id="qrcodeview" width="80" height="80">
+                                    <input class="file" name="qrcode" id="qrcode" style="position:absolute;top:-200px;left:0;" type="file">
+                                    <div id="qrcodeTip" class="onShow">请上传图片</div>
+                                </notempty>
+                                
+                            </td>
+                        </tr>
+
+                        <tr>
+
+                            <td class="line">
+
+                                tag标签：
+
+                            </td>
+
+                            <td>
+
+                                <input id="tag" name="tag" type="text" class="ipt" value="{$vodata.tag}">
+
+                                <div id="tagsTip" class="onShow">请填写标签，用空格隔开</div>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td class="line">
+
+                                帐号介绍：
+
+                            </td>
+
+                            <td>
+
+                                <textarea id="content" name="content"   class="tarea" cols="5" placeholder="本栏目只允许发布符合社会主义价值观的内容，禁止发布红包,福利,电玩,广告推广等内容,发布立即删除。" onfocus="this.placeholder='';" onblur="if(this.placeholder==''){this.placeholder='本栏目只允许发布符合社会主义核心价值观的内容，禁止发布红包,福利,电玩,广告推广等内容,发布立即删除。'}">{$vodata.content}</textarea>&nbsp;
+
+                                <div id="id_descriptionTip" class="onShow">必填</div>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="line">
+
+                                联系电话：
+
+                            </td>
+
+                            <td>
+
+                                <input id="phone" name="phone" type="text" class="ipt" placeholder="联系电话必填" value="{$vodata.phone}">
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td class="line">
+
+                                联系QQ：
+
+                            </td>
+
+                            <td>
+
+                                <input id="qq" name="qq" type="text" class="ipt" placeholder="联系QQ必填" value="{$vodata.qq}">
+
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td class="line">
+
+                                是否允许评论：
+
+                            </td>
+
+                            <td>
+                                <input type="radio" name="iscomment" value="1" <eq name="vodata.iscomment" value="1">checked="checked"</eq> style="margin-top: 5px;"><span>&nbsp;允许评论&nbsp;&nbsp;</span><input type="radio" name="iscomment" value="0" <eq name="vodata.iscomment" value="0">checked="checked"</eq> style="margin-top: 5px;"><span>&nbsp;不允许评论</span>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td colspan="2" class="line">
+                                <div class="t_tip" style="margin-left:15px;color: #21e02a">
+
+                                    发布或修改公众号二维码需要消费：<b class="Pink">2金币</b>
+
+                                    剩余金币：<b class="Pink">
+
+                                    {$data.intergral}个
+
+                                </b>
+
+
+
+                                    ，如余额不足请<a href="{:U('Member/pay')}" class=" btn_green ml10">充值</a> 或 <a href="{:U('Member/change')}" class=" btn_orange">兑换</a>
+                                    公众号发布违规内容不通知直接删除，不清楚的请先咨询客服，谢谢合作！
+
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+
+
+
+
+                <div class="centerSubmit tab2 " style="display: block;">
+                    <input type="hidden" name="id" value="{$vodata.id}">
+                    <input type="submit" class="btn_pink" value="提交二维码">
+
+                </div>
+
+                <ul class="submit_tip">
+                    特别提示：
+                    <li>1、严厉打击<span class="Pink">黄赌毒或诱惑图片</span>,发现一次删号扣金币处理！</li>
+                    <li>2、禁止发布重复二维码或图片,发现一次扣100个金币！</li>
+                    <li>3、要求提升群质量，群主需要定时踢出垃圾广告用户</li>
+                </ul>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <script type="text/javascript">
+
+        $("#province").change(function () {
+
+            var ajaxurl = "{:U('Ajax/getArea')}";
+            var areaId = this.value;
+            var areaType = 'city';
+            $.post(ajaxurl, { 'areaId': areaId }, function (data) {
+
+                if (areaType === 'city') {
+                    $('#' + areaType).html('<option value="-1">城市</option>');
+
+                    $('#district').html('<option value="-1">镇/区</option>');
+                } else if (areaType === 'district') {
+                    $('#' + areaType).html('<option value="-1">镇/区</option>');
+                }
+                if (areaType !== 'null') {
+                    $.each(data, function (no, items) {
+                        $('#' + areaType).append('<option value="' + items.id + '">' + items.area_name + '</option>');
+                    });
+                }
+            });
+
+        });
+        $('#logo').change(function () {
+            var reader = new FileReader();
+            var url = URL.createObjectURL(this.files[0]);
+            console.log(url);
+            $('#logoview').attr('src',url);
+        })
+        $('#qrcode').change(function () {
+            var reader = new FileReader();
+            var url = URL.createObjectURL(this.files[0]);
+            console.log(url);
+            $('#qrcodeview').attr('src',url);
+        })
+    </script>
+
+    <include file="Public:footer" />

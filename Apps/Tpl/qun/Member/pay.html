@@ -1,0 +1,234 @@
+<include file="Public:header" />
+<link href="../Public/css/center.css" rel="stylesheet" />
+<div class="w1200 clearfix pt20">
+    <include file="Member:left" />
+    <div class="centerContent" style="width:919px; margin-left:10px;">
+        <div class="centerTitle">
+            <span class="centerICON icon_6">
+            </span>
+            <h2>
+                我要充值
+            </h2>
+        </div>
+        <p class="mt10 f16"><span class="laba"></span><font color="red">即日起一次性充值200元以上，系统自动赠送10%充值额~</font></p>
+        <div class="mt20"><img src="../Public/images/pay02_03.jpg"></div>
+        <form method='post' id="form1" name="form1" action="{:U('Member/alipayapi')}">
+            <div class="moneyBox clearfix">
+                <div>
+                    <a href="javascript:;" class="pay-money" data="10">
+                        10元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="20">
+                        20元
+                    </a>
+                    <a href="javascript:;" class="active pay-money" data="50">
+                        50元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="100">
+                        100元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="200">
+                        200元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="300">
+                        300元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="500">
+                        500元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="1000">
+                        1000元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="1500">
+                        1500元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="2000">
+                        2000元
+                    </a>
+                    <a href="javascript:;" class="pay-money" data="3000">
+                        3000元
+                    </a>
+                </div>
+                <div class="clearfix"></div>
+                <p class="pl10">
+                    <span class="c888">
+                        手动输入金额&nbsp;&nbsp;
+                    </span>
+                    <input type="text" name="WIDprice" class="ipt money-input" value="50">
+                </p>
+
+                <p class="pl10">
+                    <span class="c888">
+                        您将入账&nbsp;&nbsp;
+                    </span>
+                    <em class="moneyNum">
+                        50.00
+                    </em>
+                    元
+                </p>
+                <p class="pl10">
+                    <span class="c888">
+                        验证码&nbsp;&nbsp;
+                    </span>
+                    <input type="text" name="verify" class="ipt">
+                    <img id="verifyImg" src="{:U('Member/verify')}" onClick="fleshVerify()" border="0" alt="点击刷新验证码" style="cursor:pointer;height:28px;    margin-top: -3px;" align="absmiddle">
+
+                </p>
+            </div>
+            <div class="mt20"><img src="../Public/images/pay02_06.jpg"></div>
+            <div class="centerDisArea_title  mt20">
+                <div class="title clearfix" id="tab1">
+                    <a href="javascript:;" class="active">
+                        第三方账户支付
+                    </a>
+
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <div class="paytabs_list">
+                <div class="payTabs pay_3th" style="display: block;">
+                    <div class="sponsorPay" style="width: 100%">
+                        <input type="radio" value="0" name="WIDtype" value="{$paytypevo.id}" checked=""><label for="so-type-7" class="alipayimg" title="支付宝">
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="centerSubmit">
+                <a href="javascript:void(0);" class="btn_pink">
+                    去充值
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+
+        $(function () {
+            var money = 330;
+            $('a.pay-money').bind('click', function () {
+                money = $(this).attr('data');
+                $('a.pay-money').removeClass('active');
+                $(this).addClass('active');
+                $('input.money-input').val(money);
+                if (money >= 200) {
+                    money = parseInt(money) + parseInt(money) * 0.1;
+                    $('.moneyNum').text(money);
+                } else {
+                    $('.moneyNum').text(money);
+                }
+            });
+            $('input.money-input').blur(function () {
+                money = $(this).val();
+                if (money >= 200) {
+                    money = parseInt(money) + parseInt(money) * 0.1;
+                    $('.moneyNum').text(money);
+                } else {
+                    $('.moneyNum').text(money);
+                }
+            });
+
+            var pay_type = 0;
+            $("input[name='pay']").bind('change', function () {
+                $("input[name='pay']").removeAttr('checked');
+                $(this).attr('checked', 'checked');
+
+                pay_type = $(this).val();
+            });
+
+            $('.btn_pink').bind('click', function () {
+                document.forms[0].submit();
+            });
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tab1").find("a").hover(function () {
+                var i = $(this).index();
+                $(this).siblings().removeClass("active");
+                $(this).addClass("active");
+                $(".payTabs").hide();
+                $(".payTabs").eq(i).show();
+            });
+        });
+    </script>
+    <script>
+        change_code();
+        function randomSort(a, b) {
+            return Math.random() > 0.5 ? -1 : 1;
+        }
+        function change_code() {
+            var arr = [0, 1, 2, 3, 4];
+            arr.sort(randomSort);
+            var divs = $(".zhuan_box");
+            $('.chang_divs').html('');
+            for (var i = 0; i < 5; i++) {
+                $('.chang_divs').append(divs.eq(arr[i]));
+            }
+            console.log($('.chang_divs'));
+        }
+    </script>
+</div>
+
+
+<script type="text/javascript">
+    function starttime() {
+        var starttime = $("#starttime").val();
+        var endtime = $("#endtime").val();
+
+        if (starttime === "" || endtime === "") {
+            return;
+        }
+
+        if (starttime > endtime) {
+            alert('结束日期不能小于开始日期');
+            $("#intergral").val('');
+        } else {
+            //计算出相差天数
+            var days = daysBetween(starttime, endtime) + 1;
+            var intergralnum = $('#recommendid option:selected').attr('name');
+            $("#intergral").val(days * intergralnum);
+        }
+    }
+    function endtime() {
+        var starttime = $("#starttime").val();
+        var endtime = $("#endtime").val();
+        if (starttime === "" || endtime === "") {
+            return;
+        }
+
+        if (starttime > endtime) {
+            alert('结束日期不能小于开始日期');
+            $("#intergral").val('');
+        } else {
+
+            //计算出相差天数
+            var days = daysBetween(starttime, endtime) + 1;
+            var intergralnum = $('#recommendid option:selected').attr('name');
+            $("#intergral").val(days * intergralnum);
+        }
+    };
+
+    function daysBetween(DateOne, DateTwo) {
+
+        var OneMonth = DateOne.substring(5, DateOne.lastIndexOf('-'));
+        var OneDay = DateOne.substring(DateOne.length, DateOne.lastIndexOf('-') + 1);
+        var OneYear = DateOne.substring(0, DateOne.indexOf('-'));
+
+        var TwoMonth = DateTwo.substring(5, DateTwo.lastIndexOf('-'));
+        var TwoDay = DateTwo.substring(DateTwo.length, DateTwo.lastIndexOf('-') + 1);
+        var TwoYear = DateTwo.substring(0, DateTwo.indexOf('-'));
+
+        var cha = ((Date.parse(OneMonth + '/' + OneDay + '/' + OneYear) - Date.parse(TwoMonth + '/' + TwoDay + '/' + TwoYear)) / 86400000);
+        return Math.abs(cha);
+    }
+    //验证码刷新
+    function fleshVerify() {
+        //重载验证码
+        $('#verifyImg').attr('src', "{:U('Member/verify',array('t'=>time()))}");
+    }
+</script>
+
+<include file="Public:footer" />
